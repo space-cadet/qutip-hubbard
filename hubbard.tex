@@ -1,0 +1,1916 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass{article}
+
+    
+    
+    \usepackage{graphicx} % Used to insert images
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{color} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage{ulem} % ulem is needed to support strikethroughs (\sout)
+    
+
+    
+    
+    \definecolor{orange}{cmyk}{0,0.4,0.8,0.2}
+    \definecolor{darkorange}{rgb}{.71,0.21,0.01}
+    \definecolor{darkgreen}{rgb}{.12,.54,.11}
+    \definecolor{myteal}{rgb}{.26, .44, .56}
+    \definecolor{gray}{gray}{0.45}
+    \definecolor{lightgray}{gray}{.95}
+    \definecolor{mediumgray}{gray}{.8}
+    \definecolor{inputbackground}{rgb}{.95, .95, .85}
+    \definecolor{outputbackground}{rgb}{.95, .95, .95}
+    \definecolor{traceback}{rgb}{1, .95, .95}
+    % ansi colors
+    \definecolor{red}{rgb}{.6,0,0}
+    \definecolor{green}{rgb}{0,.65,0}
+    \definecolor{brown}{rgb}{0.6,0.6,0}
+    \definecolor{blue}{rgb}{0,.145,.698}
+    \definecolor{purple}{rgb}{.698,.145,.698}
+    \definecolor{cyan}{rgb}{0,.698,.698}
+    \definecolor{lightgray}{gray}{0.5}
+    
+    % bright ansi colors
+    \definecolor{darkgray}{gray}{0.25}
+    \definecolor{lightred}{rgb}{1.0,0.39,0.28}
+    \definecolor{lightgreen}{rgb}{0.48,0.99,0.0}
+    \definecolor{lightblue}{rgb}{0.53,0.81,0.92}
+    \definecolor{lightpurple}{rgb}{0.87,0.63,0.87}
+    \definecolor{lightcyan}{rgb}{0.5,1.0,0.83}
+    
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Hubbard Model - Part 3, QuTiP code}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=blue,
+      linkcolor=darkorange,
+      citecolor=darkgreen,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+
+    \begin{document}
+    
+	\input{../../../research/articles/my_definitions.tex} 
+    
+    \maketitle
+    
+    
+
+    
+%\subsection{Mathjax custom}\label{mathjax-custom}
+%
+%\$ \newcommand{\opexpect}{[}3{]}\{\langle \#1 \vert \#2 \vert \#3
+%\rangle\} \$ \$ \newcommand{\rarrow}{\rightarrow} \$ \$
+%\newcommand{\bra}{\langle} \$ \$ \newcommand{\ket}{\rangle} \$
+%
+%\$ \newcommand{\up}{\uparrow} \$ \$ \newcommand{\down}{\downarrow} \$
+%
+%\$ \newcommand{\mb}{[}1{]}\{\mathbf{#1}\} \$ \$
+%\newcommand{\mc}{[}1{]}\{\mathcal{#1}\} \$ \$
+%\newcommand{\mbb}{[}1{]}\{\mathbb{#1}\} \$ \$
+%\newcommand{\mf}{[}1{]}\{\mathfrak{#1}\} \$
+%
+%\$ \newcommand{\vect}{[}1{]}\{\boldsymbol{\mathrm{#1}}\} \$ \$
+%\newcommand{\expect}{[}1{]}\{\langle \#1\rangle\} \$
+%
+%\$ \newcommand{\innerp}{[}2{]}\{\langle \#1 \vert \#2 \rangle\} \$ \$
+%\newcommand{\fullbra}{[}1{]}\{\langle \#1 \vert\} \$ \$
+%\newcommand{\fullket}{[}1{]}\{\vert \#1 \rangle\} \$ \$
+%\newcommand{\supersc}{[}1{]}\{\^{}\{\text{#1}\}\} \$ \$
+%\newcommand{\subsc}{[}1{]}\{\_\{\text{#1}\}\} \$ \$
+%\newcommand{\sltwoc}{SL(2,\mathbb{C})} \$ \$
+%\newcommand{\sltwoz}{SL(2,\mathbb{Z})} \$
+%
+%\$ \newcommand{\utilde}{[}1{]}\{\underset{\sim}{#1}\} \$
+
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}72}]:} \PY{k+kn}{from} \PY{n+nn}{jupyter\PYZus{}core.paths} \PY{k+kn}{import} \PY{n}{jupyter\PYZus{}config\PYZus{}dir}\PY{p}{,} \PY{n}{jupyter\PYZus{}data\PYZus{}dir}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}73}]:} \PY{n}{jupyter\PYZus{}data\PYZus{}dir}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}73}]:} '/Users/deepak/Library/Jupyter'
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k+kn}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib.pyplot} \PY{k+kn}{as} \PY{n+nn}{plt}
+        \PY{k+kn}{from} \PY{n+nn}{qutip} \PY{k+kn}{import} \PY{o}{*}
+        \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+\end{Verbatim}
+
+    \subsection{Hubbard Model}\label{hubbard-model}
+
+\subsubsection{Hamiltonian}\label{hamiltonian}
+
+\[ H_{h} = -t \sum_{<i,j>\sigma} c^\dagger_{i\sigma} c_{j\sigma} + U \sum_i n_{i\uparrow}n_{j\downarrow} - \mu \sum_i (n_{i\uparrow} + n_{i\downarrow}) \]
+
+where the first term is the kinetic energy. The sum is over both
+possible spin at each lattice site 
+$ \sigma \in \{\uparrow,\downarrow\} $. Second term is the potential
+energy due to repulsion of electrons at a site containing two electrons.
+The last term is the chemical potential associated with adding particles
+to the system.
+
+The partition function for a system in a thermal state is given by:
+
+\[ Z = \text{Tr} \left[ e^{-\beta H} \right] = \sum_\alpha \langle \alpha \vert e^{-\beta H} \vert \alpha \rangle  \]
+
+\subsubsection{Partition Function}\label{partition-function}
+
+For $  H\_\{h\}  $ on a single site, the partition function becomes:
+
+\[ Z_{h} = 1 + e^{\beta(\mu + t)} + e^{\beta(2t + 2\mu - U)} \]
+
+If we redefine the chemical potential  $ \mu \rightarrow \mu + U/2 $,
+then the Hubbard hamiltonian becomes:
+
+\[ H = -t \sum_{<i,j>\sigma} c^\dagger_{i\sigma} c_{j\sigma} + U \sum_i \left(n_{i\uparrow} - \frac{1}{2}\right) \left(n_{j\downarrow} - \frac{1}{2}\right) - \mu \sum_i (n_{i\uparrow} + n_{i\downarrow}) \]
+
+    \subsubsection{Energy}\label{energy}
+
+The energy for the single site Hubbard model is:
+
+\begin{align}
+    E & = \langle H + \mu n \rangle = \text{Tr} \left[ (H + \mu n) e^{-\beta H} \right] \\
+      & = \frac{1}{Z} \sum_\alpha \langle \alpha \vert (H + \mu n) e^{-\beta H} \vert \alpha \rangle \\ 
+      & = \frac{U e^{2\beta(t+\mu - U/2)}}{1 + e^{\beta(\mu + t)} + e^{\beta(2t + 2\mu - U)}}
+\end{align}
+
+\subsubsection{Occupation Number}\label{occupation-number}
+
+and the occupation number is:
+
+\begin{align}
+    \rho & = \langle n \rangle = \text{Tr} \left[ n e^{-\beta H} \right] \\
+         & = \frac{2 e^{\beta(\mu + t)} + 2 e^{2\beta(t+\mu-U/2)}}{1 + e^{\beta(\mu + t)} + e^{\beta(2t + 2\mu - U)}}
+\end{align}
+
+    \subsection{Operators and States in
+QuTiP}\label{operators-and-states-in-qutip}
+
+    Rather than using the analytical expression for the partition function,
+energy and other properties of the one-site Hubbard model, we will now
+use the Python package \href{http://qutip.org/}{QuTiP} to define the
+Hubbard model Hamiltonian on \(N\) sites. For this we will need to
+define creation, annihilation and number operators.
+
+For a single site system a creation operator is simply defined using the
+\texttt{create()} function:
+
+\[\text{create(2)} \Rightarrow c^\dagger\]
+
+which returns the matrix:
+
+\begin{equation*}\left(\begin{array}{*{11}c}0.0 & 0.0\\1.0 & 0.0\\\end{array}\right)\end{equation*}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{n}{create}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}
+\end{Verbatim}
+\texttt{\color{outcolor}Out[{\color{outcolor}4}]:}
+    
+    Quantum object: dims = {[}{[}2{]}, {[}2{]}{]}, shape = {[}2, 2{]}, type
+= oper, isherm = False
+
+\begin{equation*}\left(\begin{array}{*{11}c}0.0 & 0.0\\1.0 & 0.0\\\end{array}\right)\end{equation*}
+
+    
+
+    \subsubsection{Operators for many-body
+systems}\label{operators-for-many-body-systems}
+
+When we have more than one site, the operator must be defined as an
+operator acting of the \emph{full} Hilbert space of the system:
+\[ \mc{H} = \otimes_{i=1}^N \mc{H}_i \] where \(\mc{H}_i\) is the
+Hilbert space corresponding to a single site. Thus the creation operator
+for the \(j^\text{th}\) site is given by:
+\[ \mb{1}_1 \otimes \ldots \mb{1}_{j-1} \otimes c^\dagger_j \otimes \mb{1}_{j+1} \ldots \mb{1}_N \]
+where \(\mb{1}_i\) is the identity operator acting on the
+\(i^\text{th}\) site.
+
+The code for this is as follows:
+
+    \paragraph{Utility Functions}\label{utility-functions}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{k}{def} \PY{n+nf}{identityList}\PY{p}{(}\PY{n}{N} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{,}\PY{n}{dims} \PY{o}{=} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}Returns a list of N identity operators for a N site spin\PYZhy{}system with a}
+        \PY{l+s+sd}{    Hilber space at each state of dimensionality dims }
+        \PY{l+s+sd}{    \PYZsq{}\PYZsq{}\PYZsq{}}
+        
+            \PY{n}{iden} \PY{o}{=} \PY{n}{identity}\PY{p}{(}\PY{n}{dims}\PY{p}{)}
+            
+            \PY{n}{iden\PYZus{}list} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+        
+            \PY{p}{[}\PY{n}{iden\PYZus{}list}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{iden}\PY{p}{)} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{N}\PY{p}{)}\PY{p}{]}
+            
+            \PY{k}{return} \PY{n}{iden\PYZus{}list}
+\end{Verbatim}
+
+    \paragraph{Position Representation
+Operators}\label{position-representation-operators}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{k}{def} \PY{n+nf}{posOperatorN}\PY{p}{(}\PY{n}{oper}\PY{p}{,} \PY{n}{i} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{,} \PY{n}{N} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}Returns the operator given by oper, in the position representation, for the i\PYZca{}th site of an N site spin\PYZhy{}chain}
+        \PY{l+s+sd}{    with a Hilbert space of dimensionality dims at each site\PYZsq{}\PYZsq{}\PYZsq{}}
+            
+            \PY{k}{if} \PY{o+ow}{not} \PY{n+nb}{isinstance}\PY{p}{(}\PY{n}{oper}\PY{p}{,} \PY{n}{Qobj}\PY{p}{)}\PY{p}{:}
+                \PY{k}{raise} \PY{n+ne}{TypeError}\PY{p}{(}\PY{l+s}{\PYZsq{}}\PY{l+s}{oper must of type qutip.Qobj}\PY{l+s}{\PYZsq{}}\PY{p}{)}
+            
+            \PY{k}{if} \PY{o+ow}{not} \PY{n}{oper}\PY{o}{.}\PY{n}{isoper}\PY{p}{:}
+                \PY{k}{raise} \PY{n+ne}{ValueError}\PY{p}{(}\PY{l+s}{\PYZsq{}}\PY{l+s}{oper must be a qutip operator}\PY{l+s}{\PYZsq{}}\PY{p}{)}
+            
+            \PY{n}{shape} \PY{o}{=} \PY{n}{oper}\PY{o}{.}\PY{n}{shape}
+        
+            \PY{k}{if} \PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{==} \PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{:}
+                \PY{n}{dims} \PY{o}{=} \PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+            \PY{k}{else}\PY{p}{:}
+                \PY{k}{raise} \PY{n+ne}{ValueError}\PY{p}{(}\PY{l+s}{\PYZsq{}}\PY{l+s}{oper must be a square matrix}\PY{l+s}{\PYZsq{}}\PY{p}{)}
+            
+            \PY{k}{if} \PY{n}{oper} \PY{o}{==} \PY{n}{identity}\PY{p}{(}\PY{n}{oper}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+                \PY{k}{return} \PY{n}{tensor}\PY{p}{(}\PY{n}{identityList}\PY{p}{(}\PY{n}{N}\PY{p}{,}\PY{n}{oper}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+            \PY{k}{else}\PY{p}{:}
+                \PY{n}{iden\PYZus{}list} \PY{o}{=} \PY{n}{identityList}\PY{p}{(}\PY{n}{N}\PY{p}{,} \PY{n}{oper}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+                \PY{n}{iden\PYZus{}list}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{oper}
+                \PY{k}{return} \PY{n}{tensor}\PY{p}{(}\PY{n}{iden\PYZus{}list}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{k}{def} \PY{n+nf}{posCreationOpN}\PY{p}{(}\PY{n}{i}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{N}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}Returns the creation operator in the position representation for the i\PYZca{}th site of an N site spin\PYZhy{}chain}
+        \PY{l+s+sd}{    with a Hilbert space of dimensionality dims at each site\PYZsq{}\PYZsq{}\PYZsq{}}
+            
+            \PY{k}{return} \PY{n}{posOperatorN}\PY{p}{(}\PY{n}{create}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{,}\PY{n}{i}\PY{p}{,}\PY{n}{N}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{k}{def} \PY{n+nf}{posDestructionOpN}\PY{p}{(}\PY{n}{i}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{N}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}Returns the destruction operator in the position representation for the i\PYZca{}th site of an N site spin\PYZhy{}chain}
+        \PY{l+s+sd}{    with a Hilbert space of dimensionality dims at each site\PYZsq{}\PYZsq{}\PYZsq{}}
+            
+            \PY{k}{return} \PY{n}{posOperatorN}\PY{p}{(}\PY{n}{destroy}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{,}\PY{n}{i}\PY{p}{,}\PY{n}{N}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{k}{def} \PY{n+nf}{posOperHamiltonian}\PY{p}{(}\PY{n}{oper}\PY{p}{,} \PY{n}{N} \PY{o}{=} \PY{l+m+mi}{10}\PY{p}{,} \PY{n}{coefs} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{*}\PY{l+m+mi}{10}\PY{p}{,} \PY{n}{dims}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{} Returns the Hamiltonian, in position representation, given by the sum of oper acting on each site}
+        \PY{l+s+sd}{    with a weight given by the values in coefs}
+        \PY{l+s+sd}{    \PYZsq{}\PYZsq{}\PYZsq{}}
+            
+            \PY{k}{if} \PY{o+ow}{not} \PY{n+nb}{isinstance}\PY{p}{(}\PY{n}{oper}\PY{p}{,} \PY{n}{Qobj}\PY{p}{)}\PY{p}{:}
+                \PY{k}{raise} \PY{n+ne}{ValueError}\PY{p}{(}\PY{l+s}{\PYZsq{}}\PY{l+s}{oper must be of type Qobj}\PY{l+s}{\PYZsq{}}\PY{p}{)}
+            \PY{k}{else}\PY{p}{:}
+                \PY{k}{if} \PY{o+ow}{not} \PY{n}{oper}\PY{o}{.}\PY{n}{isoper}\PY{p}{:}
+                    \PY{k}{raise} \PY{n+ne}{ValueError}\PY{p}{(}\PY{l+s}{\PYZsq{}}\PY{l+s}{oper must be an operator}\PY{l+s}{\PYZsq{}}\PY{p}{)}
+            
+            \PY{n}{H} \PY{o}{=} \PY{l+m+mi}{0}
+            
+            \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{N}\PY{p}{)}\PY{p}{:}
+                \PY{n}{op\PYZus{}list} \PY{o}{=} \PY{n}{identityList}\PY{p}{(}\PY{n}{N}\PY{p}{,} \PY{n}{dims}\PY{p}{)}
+                \PY{n}{op\PYZus{}list}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{oper}
+                \PY{n}{H} \PY{o}{+}\PY{o}{=} \PY{n}{coefs}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{*}\PY{n}{tensor}\PY{p}{(}\PY{n}{op\PYZus{}list}\PY{p}{)}
+            
+            \PY{k}{return} \PY{n}{H}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{c}{\PYZsh{} To get the number operator at the 3rd site, in a N=5 site system, we do the following}
+         \PY{n}{numOp} \PY{o}{=} \PY{n}{create}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}\PY{o}{*}\PY{n}{destroy}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}
+         \PY{n}{posOperatorN}\PY{p}{(}\PY{n}{sigmaz}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{N}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{,} \PY{n}{i}\PY{o}{=}\PY{l+m+mi}{4}\PY{p}{)}
+\end{Verbatim}
+\texttt{\color{outcolor}Out[{\color{outcolor}11}]:}
+    
+    Quantum object: dims = {[}{[}2, 2, 2, 2, 2{]}, {[}2, 2, 2, 2, 2{]}{]},
+shape = {[}32, 32{]}, type = oper, isherm = True
+
+\begin{equation*}\left(\begin{array}{*{11}c}1.0 & 0.0 & 0.0 & 0.0 & 0.0 & \cdots & 0.0 & 0.0 & 0.0 & 0.0 & 0.0\\0.0 & -1.0 & 0.0 & 0.0 & 0.0 & \cdots & 0.0 & 0.0 & 0.0 & 0.0 & 0.0\\0.0 & 0.0 & 1.0 & 0.0 & 0.0 & \cdots & 0.0 & 0.0 & 0.0 & 0.0 & 0.0\\0.0 & 0.0 & 0.0 & -1.0 & 0.0 & \cdots & 0.0 & 0.0 & 0.0 & 0.0 & 0.0\\0.0 & 0.0 & 0.0 & 0.0 & 1.0 & \cdots & 0.0 & 0.0 & 0.0 & 0.0 & 0.0\\\vdots & \vdots & \vdots & \vdots & \vdots & \ddots & \vdots & \vdots & \vdots & \vdots & \vdots\\0.0 & 0.0 & 0.0 & 0.0 & 0.0 & \cdots & -1.0 & 0.0 & 0.0 & 0.0 & 0.0\\0.0 & 0.0 & 0.0 & 0.0 & 0.0 & \cdots & 0.0 & 1.0 & 0.0 & 0.0 & 0.0\\0.0 & 0.0 & 0.0 & 0.0 & 0.0 & \cdots & 0.0 & 0.0 & -1.0 & 0.0 & 0.0\\0.0 & 0.0 & 0.0 & 0.0 & 0.0 & \cdots & 0.0 & 0.0 & 0.0 & 1.0 & 0.0\\0.0 & 0.0 & 0.0 & 0.0 & 0.0 & \cdots & 0.0 & 0.0 & 0.0 & 0.0 & -1.0\\\end{array}\right)\end{equation*}
+
+    
+
+    \subsection{Unitary Transformations}\label{unitary-transformations}
+
+In general, given any unitary matrix \(U\), which transforms from one
+set of basis vectors \(\{\fullket{\psi_i}\}\) to another set
+\(\{\fullket{\phi_i}\}\):
+\[ \fullket{\phi_i} = U_{ij} \fullket{\psi_j} \] the corresponding
+action of \(U\) on the space of operators is given by:
+\[ \mc{O} \rightarrow U^{-1} \mc{O} U \] or in terms of indices:
+\[ \mc{O}_{ij} = U^{-1}_{ik} \mc{O}_{kl} U_{lj} \]
+
+    \subsection{Momentum Representation}\label{momentum-representation}
+
+We transform operators to momentum space as follows:
+\[ c^\dagger_{\vect{k}\sigma} = \frac{1}{\sqrt{N}} \sum_\vect{l} e^{i \vect{k}\cdot \vect{l}} c^\dagger_{\vect{l}\sigma}\]
+with the inverse transformation being:
+\[ c^\dagger_{\vect{l}\sigma} = \frac{1}{\sqrt{N}} \sum_\vect{k} e^{- i \vect{k}\cdot \vect{l}} c^\dagger_{\vect{k}\sigma}\]
+where we have used the orthogonality condition:
+\[ \frac{1}{N} \sum_\vect{l} e^{-i (\vect{k} - \vect{k'})\cdot \vect{l}} = \delta(\vect{k}-\vect{k'}) \]
+This transformation can be written in terms of a matrix:
+\[ c^\dagger_{\vect{k}\sigma} = A_{\vect{k},\vect{l}} \, c^\dagger_{\vect{l}\sigma} \]
+where \[ A_{\vect{k},\vect{l}} \equiv e^{i \vect{k}\cdot\vect{l}} \] For
+a finite system, the momentum \(\vect{k}\) and position \(\vect{l}\) can
+take on values only in a finite set:
+\[ \vect{k} \in \{ \vect{k}_1, \vect{k}_2, \ldots, \vect{k}_n  \}; \quad \vect{l} \in \{ \vect{l}_1, \vect{l}_2, \ldots, \vect{l}_n  \} \]
+For a 1D system with \(N\) sites, \(\vect{k}_n := k_n = 2\pi n/N\)
+
+More precisely, the momentum space operator 
+$ c^{\dagger}_{\vect{k}\sigma}  $ can be written as the sum:
+
+\[ c^\dagger_{\vect{k}\sigma} = \frac{1}{\sqrt{N}} \sum_{j=1}^N e^{i \vect{k}\cdot \vect{j}} \cdot \mb{1}_1 \otimes \ldots \mb{1}_{j-1} \otimes c^\dagger_{j\sigma} \otimes \mb{1}_{j+1} \ldots \mb{1}_N \]
+
+The unitary matrix which transforms operators and states between
+position and momentum representations, is given by:
+
+\[ U_{\vect{k},\vect{l}} = \frac{1}{\sqrt{N}} e^{i \vect{k}\cdot\vect{l}} \]
+
+The inverse of this matrix $ U^{\dagger} \equiv U^{-1} $ transforms back from the momentum rep to the position rep.
+
+\[ U^{-1}_{\vect{k},\vect{l}} = U^\dagger_{\vect{k},\vect{l}} = U^\star_{\vect{l},\vect{k}} \]
+
+The action of  $ U\^{}\{-1\}\_\{\vect{k},\vect{l}\} $ on
+\(c^\dagger_{\vect{k}\sigma}\) is given by:
+
+\begin{align}
+\sum_{k=1}^N U^{-1}_{\vect{k},\vect{l}} c^\dagger_{\vect{k}\sigma} = \sum_{k=1}^N  U^\star_{\vect{l},\vect{k}} c^\dagger_{\vect{k}\sigma}
+        & = \frac{1}{N} \sum_{k,j=1}^N e^{-i \vect{l}\cdot\vect{k}} e^{i \vect{k}\cdot\vect{j}} \cdot \mb{1}_1 \otimes \ldots \mb{1}_{j-1} \otimes c^\dagger_{j\sigma} \otimes \mb{1}_{j+1} \ldots \mb{1}_N \\
+        & = \sum_{j=1}^N \delta_{\vect{l},\vect{j}} \cdot \mb{1}_1 \otimes \ldots \mb{1}_{j-1} \otimes c^\dagger_{j\sigma} \otimes \mb{1}_{j+1} \ldots \mb{1}_N \\
+        & = \mb{1}_1 \otimes \ldots \mb{1}_{l-1} \otimes c^\dagger_{l\sigma} \otimes \mb{1}_{l+1} \ldots \mb{1}_N
+\end{align}
+
+    \paragraph{Position to Momentum Space}\label{position-to-momentum-space}
+
+The unitary matrix which transforms operators and states between
+position and momentum representations, is given by:
+
+\[ U_{\vect{k},\vect{l}} = e^{-i \vect{k}\cdot\vect{l}} \]
+
+Given any operator \(\mc{O}\) whose matrix elements in position space
+are \(\mc{O}_{\vect{l},\vect{l'}}\), the matrix elements of the
+corresponding operator in momentum space are given by:
+
+\[ \mc{O}_{\vect{k},\vect{k'}} = U^{-1}_{\vect{k},\vect{l}} \mc{O}_{\vect{l},\vect{l'}} U_{\vect{l},\vect{k}} \]
+
+The following code returns a QuTiP object corresponding to a matrix
+whose elements are \(U_{\vect{k},\vect{l}}\).
+
+    \paragraph{Momentum Space Operators}\label{momentum-space-operators}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{k}{def} \PY{n+nf}{posToMomentumOpN}\PY{p}{(}\PY{n}{oper}\PY{p}{,} \PY{n}{k} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{,} \PY{n}{N} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}Returns the momentum space represenation of the operator given by oper for the k\PYZca{}th momentum}
+         \PY{l+s+sd}{    of an N site spin\PYZhy{}chain with a Hilbert space of dimensionality dims at each site\PYZsq{}\PYZsq{}\PYZsq{}}
+             
+             \PY{n}{momOp} \PY{o}{=} \PY{n}{tensor}\PY{p}{(}\PY{n}{identityList}\PY{p}{(}\PY{n}{N}\PY{p}{,}\PY{n}{oper}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+             \PY{n}{invrtn} \PY{o}{=} \PY{l+m+mi}{1}\PY{o}{/}\PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{N}\PY{p}{)}
+             
+         \PY{c}{\PYZsh{}    type(invrtn)}
+         
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{N}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{momOp} \PY{o}{+}\PY{o}{=} \PY{n}{invrtn} \PY{o}{*} \PY{n}{np}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{l+m+mi}{1j}\PY{o}{*}\PY{n}{i}\PY{o}{*}\PY{n}{k}\PY{p}{)} \PY{o}{*} \PY{n}{posOperatorN}\PY{p}{(}\PY{n}{oper}\PY{p}{,}\PY{n}{i}\PY{p}{,}\PY{n}{N}\PY{p}{)}
+                 
+             \PY{k}{return} \PY{n}{momOp}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{k}{def} \PY{n+nf}{momCreationOpN}\PY{p}{(}\PY{n}{k} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{,} \PY{n}{N} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}Returns the momentum space represenation of the creation operator for the k\PYZca{}th momentum}
+         \PY{l+s+sd}{    of an N site spin\PYZhy{}chain with a Hilbert space of dimensionality dims at each site\PYZsq{}\PYZsq{}\PYZsq{}}
+                 
+             \PY{k}{return} \PY{n}{posToMomentumOpN}\PY{p}{(}\PY{n}{create}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{,}\PY{n}{k}\PY{p}{,}\PY{n}{N}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{k}{def} \PY{n+nf}{momDestructionOpN}\PY{p}{(}\PY{n}{k} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{,} \PY{n}{N} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}Returns the momentum space represenation of the operator given by oper for the k\PYZca{}th momentum}
+         \PY{l+s+sd}{    of an N site spin\PYZhy{}chain with a Hilbert space of dimensionality dims at each site\PYZsq{}\PYZsq{}\PYZsq{}}
+             
+             \PY{k}{return} \PY{n}{qutip}\PY{o}{.}\PY{n}{dag}\PY{p}{(}\PY{n}{momCreationOpN}\PY{p}{(}\PY{n}{k}\PY{p}{,}\PY{n}{N}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{n}{momCreationOpN}\PY{p}{(}\PY{n}{k}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,}\PY{n}{N}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{)}
+\end{Verbatim}
+\texttt{\color{outcolor}Out[{\color{outcolor}19}]:}
+    
+    Quantum object: dims = {[}{[}2, 2, 2{]}, {[}2, 2, 2{]}{]}, shape = {[}8,
+8{]}, type = oper, isherm = False
+
+\begin{equation*}\left(\begin{array}{*{11}c}1.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0\\(-0.377-0.437j) & 1.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0\\(-0.240+0.525j) & 0.0 & 1.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0\\0.0 & (-0.240+0.525j) & (-0.377-0.437j) & 1.0 & 0.0 & 0.0 & 0.0 & 0.0\\0.577 & 0.0 & 0.0 & 0.0 & 1.0 & 0.0 & 0.0 & 0.0\\0.0 & 0.577 & 0.0 & 0.0 & (-0.377-0.437j) & 1.0 & 0.0 & 0.0\\0.0 & 0.0 & 0.577 & 0.0 & (-0.240+0.525j) & 0.0 & 1.0 & 0.0\\0.0 & 0.0 & 0.0 & 0.577 & 0.0 & (-0.240+0.525j) & (-0.377-0.437j) & 1.0\\\end{array}\right)\end{equation*}
+
+    
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{n}{momDestructionOpN}\PY{p}{(}\PY{n}{k}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,}\PY{n}{N}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{)}
+\end{Verbatim}
+\texttt{\color{outcolor}Out[{\color{outcolor}20}]:}
+    
+    Quantum object: dims = {[}{[}2, 2, 2{]}, {[}2, 2, 2{]}{]}, shape = {[}8,
+8{]}, type = oper, isherm = False
+
+\begin{equation*}\left(\begin{array}{*{11}c}1.0 & (-0.377+0.437j) & (-0.240-0.525j) & 0.0 & 0.577 & 0.0 & 0.0 & 0.0\\0.0 & 1.0 & 0.0 & (-0.240-0.525j) & 0.0 & 0.577 & 0.0 & 0.0\\0.0 & 0.0 & 1.0 & (-0.377+0.437j) & 0.0 & 0.0 & 0.577 & 0.0\\0.0 & 0.0 & 0.0 & 1.0 & 0.0 & 0.0 & 0.0 & 0.577\\0.0 & 0.0 & 0.0 & 0.0 & 1.0 & (-0.377+0.437j) & (-0.240-0.525j) & 0.0\\0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 1.0 & 0.0 & (-0.240-0.525j)\\0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 1.0 & (-0.377+0.437j)\\0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 1.0\\\end{array}\right)\end{equation*}
+
+    
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{n}{\PYZus{}19}\PY{o}{.}\PY{n}{dag}\PY{p}{(}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{n}{\PYZus{}20}
+\end{Verbatim}
+\texttt{\color{outcolor}Out[{\color{outcolor}22}]:}
+    
+    Quantum object: dims = {[}{[}2, 2, 2{]}, {[}2, 2, 2{]}{]}, shape = {[}8,
+8{]}, type = oper, isherm = True
+
+\begin{equation*}\left(\begin{array}{*{11}c}0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0\\0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0\\0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0\\0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0\\0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0\\0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0\\0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0\\0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0\\\end{array}\right)\end{equation*}
+
+    
+
+    \paragraph{Correct Interpretation of
+Indices}\label{correct-interpretation-of-indices}
+
+It is important to keep in mind that the indices \(l, l'\) in the
+previous paragraph refer not to the
+
+    \subsection{Model Hamiltonians}\label{model-hamiltonians}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{k}{def} \PY{n+nf}{matrixPosToMom}\PY{p}{(}\PY{n}{N} \PY{o}{=} \PY{l+m+mi}{10}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{} Returns a QuTiP object corresponding to a matrix whose elements are:}
+         \PY{l+s+sd}{    }
+         \PY{l+s+sd}{    U\PYZus{}\PYZob{}k,l\PYZcb{} = e\PYZca{}\PYZob{}\PYZhy{}i*k*l\PYZcb{}}
+         \PY{l+s+sd}{    }
+         \PY{l+s+sd}{    \PYZsq{}\PYZsq{}\PYZsq{}}
+             
+             \PY{n}{matrix} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{[}\PY{n}{N}\PY{p}{,}\PY{n}{N}\PY{p}{]}\PY{p}{,}\PY{n}{dtype}\PY{o}{=}\PY{n+nb}{complex}\PY{p}{)}
+             
+             \PY{k}{for} \PY{n}{k} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{N}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{for} \PY{n}{l} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{N}\PY{p}{)}\PY{p}{:}
+                     \PY{n}{matrix}\PY{p}{[}\PY{n}{k}\PY{p}{]}\PY{p}{[}\PY{n}{l}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{l+m+mi}{1j}\PY{o}{*}\PY{n}{k}\PY{o}{*}\PY{n}{l}\PY{p}{)}
+             
+             \PY{k}{return} \PY{n}{Qobj}\PY{p}{(}\PY{n}{matrix}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{n}{matrixPosToMom}\PY{p}{(}\PY{n}{N} \PY{o}{=} \PY{l+m+mi}{4}\PY{p}{)}
+\end{Verbatim}
+\texttt{\color{outcolor}Out[{\color{outcolor}24}]:}
+    
+    Quantum object: dims = {[}{[}4{]}, {[}4{]}{]}, shape = {[}4, 4{]}, type
+= oper, isherm = False
+
+\begin{equation*}\left(\begin{array}{*{11}c}1.0 & 1.0 & 1.0 & 1.0\\1.0 & (0.540+0.841j) & (-0.416+0.909j) & (-0.990+0.141j)\\1.0 & (-0.416+0.909j) & (-0.654-0.757j) & (0.960-0.279j)\\1.0 & (-0.990+0.141j) & (0.960-0.279j) & (-0.911+0.412j)\\\end{array}\right)\end{equation*}
+
+    
+
+    \subsubsection{Hubbard Hamiltonian Code}\label{hubbard-hamiltonian-code}
+
+Now at each site, one can have two electrons with spin up and down
+respectively. Thus our creation/annihilation operators also have a spin
+index \(\sigma\):
+\[ \mb{1}_1 \otimes \ldots \mb{1}_{j-1} \otimes c^\dagger_{j\sigma} \otimes \mb{1}_{j+1} \ldots \mb{1}_N \]
+In order to implement we need two sets of creation/annihilation
+operators. One set for up-spin and one set for down-spin.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}27}]:} \PY{k}{def} \PY{n+nf}{hamiltonianHubbard}\PY{p}{(}\PY{n}{N} \PY{o}{=} \PY{l+m+mi}{10}\PY{p}{,} \PY{n}{t} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{U} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{mu} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{,} \PY{n}{periodic} \PY{o}{=} \PY{n+nb+bp}{True}\PY{p}{,} \PY{n}{shift} \PY{o}{=} \PY{n+nb+bp}{False}\PY{p}{,} \PY{n}{dims} \PY{o}{=} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}Returns operator corresponding to Hubbard Hamiltonian on N sites.}
+         \PY{l+s+sd}{    Default value of N is 10. t, U and mu are the kinetic energy, potential energy and}
+         \PY{l+s+sd}{    chemical potential respectively.}
+         \PY{l+s+sd}{    If shift is False then first version of Hamiltonian is returned, else the second}
+         \PY{l+s+sd}{    version (where the chemical potential is shifted \PYZdl{}\PYZbs{}mu \PYZbs{}rightarrow \PYZbs{}mu \PYZhy{} U/2\PYZdl{}) is}
+         \PY{l+s+sd}{    returned.}
+         \PY{l+s+sd}{    dims is the dimension of the Hilbert space for each electron. Default is 2\PYZsq{}\PYZsq{}\PYZsq{}}
+             
+             \PY{c}{\PYZsh{} two sets of creation/destruction operators, labeled A and B.}
+             
+             \PY{n}{destroyA\PYZus{}list} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+             \PY{n}{createA\PYZus{}list} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         
+             \PY{n}{destroyB\PYZus{}list} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+             \PY{n}{createB\PYZus{}list} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+             
+             \PY{n}{cOp} \PY{o}{=} \PY{n}{create}\PY{p}{(}\PY{n}{dims}\PY{p}{)}
+             \PY{n}{dOp} \PY{o}{=} \PY{n}{destroy}\PY{p}{(}\PY{n}{dims}\PY{p}{)}
+             \PY{n}{nOp} \PY{o}{=} \PY{n}{cOp} \PY{o}{*} \PY{n}{dOp}
+         
+             \PY{n}{nA\PYZus{}list} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+             \PY{n}{nB\PYZus{}list} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+             
+             \PY{n}{idOp} \PY{o}{=} \PY{n}{identity}\PY{p}{(}\PY{n}{dims}\PY{p}{)}
+         
+             \PY{n}{idOp\PYZus{}list} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         
+             \PY{p}{[}\PY{n}{idOp\PYZus{}list}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{idOp}\PY{p}{)} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{N}\PY{p}{)}\PY{p}{]}
+             
+             \PY{n}{superid} \PY{o}{=} \PY{n}{tensor}\PY{p}{(}\PY{n}{idOp\PYZus{}list}\PY{p}{)} \PY{c}{\PYZsh{} identity operator for whole system}
+             
+             \PY{n}{H} \PY{o}{=} \PY{l+m+mi}{0}
+         
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{N}\PY{p}{)}\PY{p}{:}
+                 \PY{c}{\PYZsh{} Create list containing creation/destruction/number operators for each site}
+         
+                 \PY{n}{createA\PYZus{}list}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{posOperatorN}\PY{p}{(}\PY{n}{cOp}\PY{p}{,}\PY{n}{N}\PY{o}{=}\PY{n}{N}\PY{p}{,}\PY{n}{i}\PY{o}{=}\PY{n}{i}\PY{p}{)}\PY{p}{)}
+                 \PY{n}{createB\PYZus{}list}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{posOperatorN}\PY{p}{(}\PY{n}{cOp}\PY{p}{,}\PY{n}{N}\PY{o}{=}\PY{n}{N}\PY{p}{,}\PY{n}{i}\PY{o}{=}\PY{n}{i}\PY{p}{)}\PY{p}{)}
+         
+                 \PY{n}{destroyA\PYZus{}list}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{posOperatorN}\PY{p}{(}\PY{n}{dOp}\PY{p}{,}\PY{n}{N}\PY{o}{=}\PY{n}{N}\PY{p}{,}\PY{n}{i}\PY{o}{=}\PY{n}{i}\PY{p}{)}\PY{p}{)}
+                 \PY{n}{destroyB\PYZus{}list}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{posOperatorN}\PY{p}{(}\PY{n}{dOp}\PY{p}{,}\PY{n}{N}\PY{o}{=}\PY{n}{N}\PY{p}{,}\PY{n}{i}\PY{o}{=}\PY{n}{i}\PY{p}{)}\PY{p}{)}
+         
+                 \PY{n}{nA\PYZus{}list}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{posOperatorN}\PY{p}{(}\PY{n}{nOp}\PY{p}{,}\PY{n}{N}\PY{o}{=}\PY{n}{N}\PY{p}{,}\PY{n}{i}\PY{o}{=}\PY{n}{i}\PY{p}{)}\PY{p}{)}
+                 \PY{n}{nB\PYZus{}list}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{posOperatorN}\PY{p}{(}\PY{n}{nOp}\PY{p}{,}\PY{n}{N}\PY{o}{=}\PY{n}{N}\PY{p}{,}\PY{n}{i}\PY{o}{=}\PY{n}{i}\PY{p}{)}\PY{p}{)}
+                 
+             \PY{k}{if} \PY{n}{periodic} \PY{o}{==} \PY{n+nb+bp}{True}\PY{p}{:}
+                 \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{N}\PY{p}{)}\PY{p}{:}
+                     \PY{n}{H} \PY{o}{+}\PY{o}{=} \PY{o}{\PYZhy{}} \PY{n}{t} \PY{o}{*} \PY{p}{(}\PY{n}{createA\PYZus{}list}\PY{p}{[}\PY{n}{i}\PY{o}{\PYZpc{}}\PY{k}{N}] * destroyA\PYZus{}list[(i+1)\PYZpc{}N] + createB\PYZus{}list[i\PYZpc{}N] * destroyB\PYZus{}list[(i+1)\PYZpc{}N])
+             \PY{k}{else}\PY{p}{:}
+                 \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{N}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+                     \PY{n}{H} \PY{o}{+}\PY{o}{=} \PY{o}{\PYZhy{}} \PY{n}{t} \PY{o}{*} \PY{p}{(}\PY{n}{createA\PYZus{}list}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{*} \PY{n}{destroyA\PYZus{}list}\PY{p}{[}\PY{n}{i}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{+} \PY{n}{createB\PYZus{}list}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{*} \PY{n}{destroyB\PYZus{}list}\PY{p}{[}\PY{n}{i}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+         
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{N}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{H} \PY{o}{+}\PY{o}{=} \PY{o}{\PYZhy{}} \PY{n}{mu} \PY{o}{*} \PY{p}{(}\PY{n}{nA\PYZus{}list}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{+} \PY{n}{nB\PYZus{}list}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}
+                 \PY{k}{if} \PY{n}{shift} \PY{o}{==} \PY{n+nb+bp}{True}\PY{p}{:}
+                     \PY{n}{H} \PY{o}{+}\PY{o}{=} \PY{n}{U} \PY{o}{*} \PY{p}{(}\PY{n}{nA\PYZus{}list}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{l+m+mf}{0.5} \PY{o}{*} \PY{n}{superid}\PY{p}{)} \PY{o}{*} \PY{p}{(}\PY{n}{nB\PYZus{}list}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{l+m+mf}{0.5} \PY{o}{*} \PY{n}{superid}\PY{p}{)}
+                 \PY{k}{else}\PY{p}{:}
+                     \PY{n}{H} \PY{o}{+}\PY{o}{=} \PY{n}{U} \PY{o}{*} \PY{n}{nA\PYZus{}list}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{*} \PY{n}{nB\PYZus{}list}\PY{p}{[}\PY{n}{i}\PY{p}{]}
+             
+             \PY{k}{return} \PY{n}{H}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}28}]:} \PY{n}{h1} \PY{o}{=} \PY{n}{hamiltonianHubbard}\PY{p}{(}\PY{n}{mu}\PY{o}{=}\PY{l+m+mf}{0.1}\PY{p}{,}\PY{n}{N}\PY{o}{=}\PY{l+m+mi}{6}\PY{p}{,}\PY{n}{t}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{h1}
+\end{Verbatim}
+\texttt{\color{outcolor}Out[{\color{outcolor}28}]:}
+    
+    Quantum object: dims = {[}{[}2, 2, 2, 2, 2, 2{]}, {[}2, 2, 2, 2, 2,
+2{]}{]}, shape = {[}64, 64{]}, type = oper, isherm = False
+
+\begin{equation*}\left(\begin{array}{*{11}c}0.0 & 0.0 & 0.0 & 0.0 & 0.0 & \cdots & 0.0 & 0.0 & 0.0 & 0.0 & 0.0\\0.0 & 0.800 & 0.0 & 0.0 & 0.0 & \cdots & 0.0 & 0.0 & 0.0 & 0.0 & 0.0\\0.0 & 2.0 & 0.800 & 0.0 & 0.0 & \cdots & 0.0 & 0.0 & 0.0 & 0.0 & 0.0\\0.0 & 0.0 & 0.0 & 1.600 & 0.0 & \cdots & 0.0 & 0.0 & 0.0 & 0.0 & 0.0\\0.0 & 0.0 & 2.0 & 0.0 & 0.800 & \cdots & 0.0 & 0.0 & 0.0 & 0.0 & 0.0\\\vdots & \vdots & \vdots & \vdots & \vdots & \ddots & \vdots & \vdots & \vdots & \vdots & \vdots\\0.0 & 0.0 & 0.0 & 0.0 & 0.0 & \cdots & 4.0 & 0.0 & 0.0 & 0.0 & 0.0\\0.0 & 0.0 & 0.0 & 0.0 & 0.0 & \cdots & 0.0 & 3.200 & 0.0 & 0.0 & 0.0\\0.0 & 0.0 & 0.0 & 0.0 & 0.0 & \cdots & 2.0 & 0.0 & 4.0 & 0.0 & 0.0\\0.0 & 0.0 & 0.0 & 0.0 & 0.0 & \cdots & 0.0 & 0.0 & 2.0 & 4.0 & 0.0\\0.0 & 0.0 & 0.0 & 0.0 & 0.0 & \cdots & 0.0 & 0.0 & 0.0 & 0.0 & 4.800\\\end{array}\right)\end{equation*}
+
+    
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}29}]:} \PY{n}{plot\PYZus{}energy\PYZus{}levels}\PY{p}{(}\PY{p}{[}\PY{n}{\PYZus{}28}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/Users/deepak/anaconda/lib/python2.7/site-packages/numpy/core/numeric.py:462: ComplexWarning: Casting complex values to real discards the imaginary part
+  return array(a, dtype, copy=False, order=order)
+    \end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}29}]:} (<matplotlib.figure.Figure at 0x107c97710>,
+          <matplotlib.axes.\_subplots.AxesSubplot at 0x104558f90>)
+\end{Verbatim}
+        
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{hubbard_files/Hubbard Model - Part 3, QuTiP code_35_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{Ising Hamiltonian Code}\label{ising-hamiltonian-code}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}34}]:} \PY{k}{def} \PY{n+nf}{hamiltonianIsing}\PY{p}{(}\PY{n}{N} \PY{o}{=} \PY{l+m+mi}{10}\PY{p}{,} \PY{n}{jcoefs} \PY{o}{=} \PY{p}{[}\PY{p}{]}\PY{p}{,} \PY{n}{periodic} \PY{o}{=} \PY{n+nb+bp}{True}\PY{p}{,} \PY{n}{spin}\PY{o}{=}\PY{l+m+mf}{0.5}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}Returns operator corresponding to Ising Hamiltonian for give spin on N sites.}
+         \PY{l+s+sd}{    Default value of N is 10. jcoef is the coupling strength. Default is \PYZhy{}1 for}
+         \PY{l+s+sd}{    ferromagnetic interaction.}
+         \PY{l+s+sd}{    Default value of spin is 0.5}
+         \PY{l+s+sd}{    \PYZsq{}\PYZsq{}\PYZsq{}}
+             
+             \PY{n}{op\PYZus{}list} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+             
+             \PY{n}{jz} \PY{o}{=} \PY{n}{jmat}\PY{p}{(}\PY{n}{spin}\PY{p}{,}\PY{l+s}{\PYZsq{}}\PY{l+s}{z}\PY{l+s}{\PYZsq{}}\PY{p}{)}
+             
+             \PY{n}{dimj} \PY{o}{=} \PY{l+m+mi}{2}\PY{o}{*}\PY{n}{spin} \PY{o}{+} \PY{l+m+mi}{1}
+             
+             \PY{n}{H} \PY{o}{=} \PY{l+m+mi}{0}
+             
+             \PY{n}{idlist} \PY{o}{=} \PY{n}{identityList}\PY{p}{(}\PY{n}{N}\PY{p}{,} \PY{n}{dimj}\PY{p}{)}
+             
+             \PY{k}{if} \PY{n+nb}{len}\PY{p}{(}\PY{n}{jcoefs}\PY{p}{)} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{:}
+                 \PY{n}{jcoefs} \PY{o}{=} \PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{*}\PY{n}{N}
+             
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{N}\PY{p}{)}\PY{p}{:}
+                 \PY{c}{\PYZsh{} Create list containing spin\PYZhy{}z operators for each site:}
+                 
+                 \PY{n}{op\PYZus{}list}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{posOperatorN}\PY{p}{(}\PY{n}{jz}\PY{p}{,}\PY{n}{i}\PY{o}{=}\PY{n}{i}\PY{p}{,}\PY{n}{N}\PY{o}{=}\PY{n}{N}\PY{p}{)}\PY{p}{)}
+             
+             \PY{k}{if} \PY{n}{periodic} \PY{o}{==} \PY{n+nb+bp}{True}\PY{p}{:}
+                 \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{N}\PY{p}{)}\PY{p}{:}
+                     \PY{n}{H} \PY{o}{+}\PY{o}{=} \PY{n}{jcoefs}\PY{p}{[}\PY{n}{i}\PY{o}{\PYZpc{}}\PY{k}{N}]*op\PYZus{}list[i\PYZpc{}N]*op\PYZus{}list[(i+1)\PYZpc{}N]
+             \PY{k}{else}\PY{p}{:}
+                 \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{N}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+                     \PY{n}{H} \PY{o}{+}\PY{o}{=} \PY{n}{jcoefs}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{*}\PY{n}{op\PYZus{}list}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{*}\PY{n}{op\PYZus{}list}\PY{p}{[}\PY{n}{i}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{]}
+                     
+             \PY{k}{return} \PY{n}{H}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}51}]:} \PY{n}{N} \PY{o}{=} \PY{l+m+mi}{5}
+         \PY{c}{\PYZsh{}jcoefs = 2*np.random.random(N) \PYZhy{} 1}
+         \PY{n}{jcoefs} \PY{o}{=} \PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{*}\PY{n}{N}
+         \PY{n}{jcoefs}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}51}]:} [-1, -1, -1, -1, -1]
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}54}]:} \PY{n}{hamiltonianIsing}\PY{p}{(}\PY{n}{N}\PY{p}{,}\PY{n}{jcoefs}\PY{p}{,} \PY{n}{periodic} \PY{o}{=} \PY{n+nb+bp}{True}\PY{p}{)}
+\end{Verbatim}
+\texttt{\color{outcolor}Out[{\color{outcolor}54}]:}
+    
+    Quantum object: dims = {[}{[}2, 2, 2, 2, 2{]}, {[}2, 2, 2, 2, 2{]}{]},
+shape = {[}32, 32{]}, type = oper, isherm = True
+
+\begin{equation*}\left(\begin{array}{*{11}c}-1.250 & 0.0 & 0.0 & 0.0 & 0.0 & \cdots & 0.0 & 0.0 & 0.0 & 0.0 & 0.0\\0.0 & -0.250 & 0.0 & 0.0 & 0.0 & \cdots & 0.0 & 0.0 & 0.0 & 0.0 & 0.0\\0.0 & 0.0 & -0.250 & 0.0 & 0.0 & \cdots & 0.0 & 0.0 & 0.0 & 0.0 & 0.0\\0.0 & 0.0 & 0.0 & -0.250 & 0.0 & \cdots & 0.0 & 0.0 & 0.0 & 0.0 & 0.0\\0.0 & 0.0 & 0.0 & 0.0 & -0.250 & \cdots & 0.0 & 0.0 & 0.0 & 0.0 & 0.0\\\vdots & \vdots & \vdots & \vdots & \vdots & \ddots & \vdots & \vdots & \vdots & \vdots & \vdots\\0.0 & 0.0 & 0.0 & 0.0 & 0.0 & \cdots & -0.250 & 0.0 & 0.0 & 0.0 & 0.0\\0.0 & 0.0 & 0.0 & 0.0 & 0.0 & \cdots & 0.0 & -0.250 & 0.0 & 0.0 & 0.0\\0.0 & 0.0 & 0.0 & 0.0 & 0.0 & \cdots & 0.0 & 0.0 & -0.250 & 0.0 & 0.0\\0.0 & 0.0 & 0.0 & 0.0 & 0.0 & \cdots & 0.0 & 0.0 & 0.0 & -0.250 & 0.0\\0.0 & 0.0 & 0.0 & 0.0 & 0.0 & \cdots & 0.0 & 0.0 & 0.0 & 0.0 & -1.250\\\end{array}\right)\end{equation*}
+
+    
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}55}]:} \PY{n}{plot\PYZus{}energy\PYZus{}levels}\PY{p}{(}\PY{p}{[}\PY{n}{\PYZus{}54}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}55}]:} (<matplotlib.figure.Figure at 0x108fb8a10>,
+          <matplotlib.axes.\_subplots.AxesSubplot at 0x108fa4750>)
+\end{Verbatim}
+        
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{hubbard_files/Hubbard Model - Part 3, QuTiP code_40_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{Heisenberg Spin-Chain}\label{heisenberg-spin-chain}
+
+operator corresponding to the Heisenberg 1D spin-chain on N sites.
+\[ H = - J \sum_{i=1}^N \vect{S}_n \cdot \vect{S}_{n+1} \] where \$
+\vect{S}\_n = (S\_x, S\_y, S\_z) \$ is the spin-operator acting on the
+n\({}^{th}\) site.
+
+for the n\({}^{th}\) term in the sum, we have:
+
+\[ H_n = -J ( S_n^x S_{n+1}^x + S_n^y S_{n+1}^y + S_n^z S_{n+1}^z ) \]
+
+\(S^x, S^y\) can be expressed in terms of the spin-flip operators
+\(S^+, S^-\), as in:
+
+\[ S^x = \frac{1}{2}(S^+ + S^-); \qquad S^y = \frac{1}{2i}(S^+ - S^-) \]
+
+Consequently the terms involving \(S^x, S^y\) in \(H_n\) take the form:
+
+\begin{align}
+    S_n^x S_{n+1}^x + S_n^y S_{n+1}^y & = \frac{1}{4}(S_n^+ + S_n^-) (S_{n+1}^+ + S_{n+1}^-) - \frac{1}{4}(S_n^+ - S_n^-) (S_{n+1}^+ - S_{n+1}^-) \\
+            & = \frac{1}{2} (S_n^+ S_{n+1}^- + S_n^- S_{n+1}^+)
+\end{align}
+
+So that, the total Hamiltonian becomes:
+
+\[ H = -J \sum_{i=1}^N \left[ \frac{1}{2} (S_n^+ S_{n+1}^- + S_n^- S_{n+1}^+) + S_n^z S_{n+1}^z \right] \]
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}58}]:} \PY{k}{def} \PY{n+nf}{hamiltonianHeisenberg}\PY{p}{(}\PY{n}{N} \PY{o}{=} \PY{l+m+mi}{5}\PY{p}{,} \PY{n}{J} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{periodic} \PY{o}{=} \PY{n+nb+bp}{True}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}Returns operator corresponding to the Heisenberg 1D spin\PYZhy{}chain on N sites.}
+         \PY{l+s+sd}{    \PYZdl{}\PYZdl{} H = \PYZhy{} J \PYZbs{}sum\PYZus{}\PYZob{}i=1\PYZcb{}\PYZca{}N S\PYZus{}n \PYZbs{}cdot S\PYZus{}\PYZob{}n+1\PYZcb{} \PYZdl{}\PYZdl{}}
+         \PY{l+s+sd}{    where \PYZdl{} S\PYZus{}n (S\PYZus{}x, S\PYZus{}y, S\PYZus{}z) \PYZdl{} is the spin\PYZhy{}operator acting on the n\PYZca{}\PYZob{}th\PYZcb{} site.}
+         \PY{l+s+sd}{    }
+         \PY{l+s+sd}{    H can be written in terms of spin\PYZhy{}flip operators \PYZdl{}S\PYZca{}+, S\PYZca{}\PYZhy{}\PYZdl{} as:}
+         \PY{l+s+sd}{    }
+         \PY{l+s+sd}{    \PYZdl{}\PYZdl{} H = \PYZhy{}J \PYZbs{}sum\PYZus{}\PYZob{}i=1\PYZcb{}\PYZca{}N \PYZbs{}left[ \PYZbs{}frac\PYZob{}1\PYZcb{}\PYZob{}2\PYZcb{} (S\PYZus{}n\PYZca{}+ S\PYZus{}\PYZob{}n+1\PYZcb{}\PYZca{}\PYZhy{} + S\PYZus{}n\PYZca{}\PYZhy{} S\PYZus{}\PYZob{}n+1\PYZcb{}\PYZca{}+) + S\PYZus{}n\PYZca{}z S\PYZus{}\PYZob{}n+1\PYZcb{}\PYZca{}z \PYZbs{}right] \PYZdl{}\PYZdl{}}
+         \PY{l+s+sd}{    }
+         \PY{l+s+sd}{    \PYZsq{}\PYZsq{}\PYZsq{}}
+             
+             \PY{n}{spinp\PYZus{}list} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+             \PY{n}{spinm\PYZus{}list} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+             \PY{n}{spinz\PYZus{}list} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+             
+             \PY{n}{opSpinP} \PY{o}{=} \PY{n}{sigmap}\PY{p}{(}\PY{p}{)}
+             \PY{n}{opSpinM} \PY{o}{=} \PY{n}{sigmam}\PY{p}{(}\PY{p}{)}
+             \PY{n}{opSpinZ} \PY{o}{=} \PY{n}{sigmaz}\PY{p}{(}\PY{p}{)}
+             
+             \PY{n}{idOp} \PY{o}{=} \PY{n}{identity}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}
+         
+             \PY{n}{idOp\PYZus{}list} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+             
+             \PY{p}{[}\PY{n}{idOp\PYZus{}list}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{idOp}\PY{p}{)} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{N}\PY{p}{)}\PY{p}{]}
+             
+             \PY{n}{superid} \PY{o}{=} \PY{n}{tensor}\PY{p}{(}\PY{n}{idOp\PYZus{}list}\PY{p}{)} \PY{c}{\PYZsh{} identity operator for whole system}
+             
+             \PY{n}{H} \PY{o}{=} \PY{l+m+mi}{0}
+         
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{N}\PY{p}{)}\PY{p}{:}
+                 \PY{c}{\PYZsh{} Create list containing creation/destruction/number operators for each site}
+         
+                 \PY{n}{spinp\PYZus{}list}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{posOperatorN}\PY{p}{(}\PY{n}{opSpinP}\PY{p}{,}\PY{n}{N}\PY{o}{=}\PY{n}{N}\PY{p}{,}\PY{n}{i}\PY{o}{=}\PY{n}{i}\PY{p}{)}\PY{p}{)}
+                 \PY{n}{spinm\PYZus{}list}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{posOperatorN}\PY{p}{(}\PY{n}{opSpinM}\PY{p}{,}\PY{n}{N}\PY{o}{=}\PY{n}{N}\PY{p}{,}\PY{n}{i}\PY{o}{=}\PY{n}{i}\PY{p}{)}\PY{p}{)}
+                 \PY{n}{spinz\PYZus{}list}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{posOperatorN}\PY{p}{(}\PY{n}{opSpinZ}\PY{p}{,}\PY{n}{N}\PY{o}{=}\PY{n}{N}\PY{p}{,}\PY{n}{i}\PY{o}{=}\PY{n}{i}\PY{p}{)}\PY{p}{)}
+             
+             \PY{k}{if} \PY{n}{periodic} \PY{o}{==} \PY{n+nb+bp}{True}\PY{p}{:}
+                 \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{N}\PY{p}{)}\PY{p}{:}
+                     \PY{n}{H} \PY{o}{+}\PY{o}{=} \PY{o}{\PYZhy{}} \PY{n}{J} \PY{o}{*} \PY{p}{(} \PY{l+m+mf}{0.5}\PY{o}{*}\PY{p}{(}\PY{n}{spinp\PYZus{}list}\PY{p}{[}\PY{n}{i}\PY{o}{\PYZpc{}}\PY{k}{N}] * spinp\PYZus{}list[(i+1)\PYZpc{}N] + spinm\PYZus{}list[i\PYZpc{}N] * spinm\PYZus{}list[(i+1)\PYZpc{}N]) \PYZbs{}
+                             \PY{o}{+} \PY{n}{spinz\PYZus{}list}\PY{p}{[}\PY{n}{i}\PY{o}{\PYZpc{}}\PY{k}{N}] * spinz\PYZus{}list[(i+1)\PYZpc{}N] )
+             \PY{k}{else}\PY{p}{:}
+                 \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{N}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+                     \PY{n}{H} \PY{o}{+}\PY{o}{=} \PY{o}{\PYZhy{}} \PY{n}{J} \PY{o}{*} \PY{p}{(} \PY{l+m+mf}{0.5}\PY{o}{*}\PY{p}{(}\PY{n}{spinp\PYZus{}list}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{*} \PY{n}{spinp\PYZus{}list}\PY{p}{[}\PY{n}{i}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{+} \PY{n}{spinm\PYZus{}list}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{*} \PY{n}{spinm\PYZus{}list}\PY{p}{[}\PY{n}{i}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)} \PYZbs{}
+                             \PY{o}{+} \PY{n}{spinz\PYZus{}list}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{*} \PY{n}{spinz\PYZus{}list}\PY{p}{[}\PY{n}{i}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{]} \PY{p}{)}
+             
+             \PY{k}{return} \PY{n}{H}
+             
+             
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}59}]:} \PY{n}{hamiltonianHeisenberg}\PY{p}{(}\PY{n}{N}\PY{o}{=}\PY{l+m+mi}{6}\PY{p}{)}
+\end{Verbatim}
+\texttt{\color{outcolor}Out[{\color{outcolor}59}]:}
+    
+    Quantum object: dims = {[}{[}2, 2, 2, 2, 2, 2{]}, {[}2, 2, 2, 2, 2,
+2{]}{]}, shape = {[}64, 64{]}, type = oper, isherm = True
+
+\begin{equation*}\left(\begin{array}{*{11}c}-6.0 & 0.0 & 0.0 & -0.500 & 0.0 & \cdots & 0.0 & 0.0 & 0.0 & 0.0 & 0.0\\0.0 & -2.0 & 0.0 & 0.0 & 0.0 & \cdots & 0.0 & 0.0 & 0.0 & 0.0 & 0.0\\0.0 & 0.0 & -2.0 & 0.0 & 0.0 & \cdots & 0.0 & 0.0 & 0.0 & 0.0 & 0.0\\-0.500 & 0.0 & 0.0 & -2.0 & 0.0 & \cdots & 0.0 & 0.0 & 0.0 & 0.0 & 0.0\\0.0 & 0.0 & 0.0 & 0.0 & -2.0 & \cdots & 0.0 & 0.0 & 0.0 & 0.0 & 0.0\\\vdots & \vdots & \vdots & \vdots & \vdots & \ddots & \vdots & \vdots & \vdots & \vdots & \vdots\\0.0 & 0.0 & 0.0 & 0.0 & 0.0 & \cdots & -2.0 & 0.0 & 0.0 & 0.0 & 0.0\\0.0 & 0.0 & 0.0 & 0.0 & 0.0 & \cdots & 0.0 & -2.0 & 0.0 & 0.0 & -0.500\\0.0 & 0.0 & 0.0 & 0.0 & 0.0 & \cdots & 0.0 & 0.0 & -2.0 & 0.0 & 0.0\\0.0 & 0.0 & 0.0 & 0.0 & 0.0 & \cdots & 0.0 & 0.0 & 0.0 & -2.0 & 0.0\\0.0 & 0.0 & 0.0 & 0.0 & 0.0 & \cdots & 0.0 & -0.500 & 0.0 & 0.0 & -6.0\\\end{array}\right)\end{equation*}
+
+    
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}60}]:} \PY{n}{plot\PYZus{}energy\PYZus{}levels}\PY{p}{(}\PY{p}{[}\PY{n}{\PYZus{}59}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}60}]:} (<matplotlib.figure.Figure at 0x109782f10>,
+          <matplotlib.axes.\_subplots.AxesSubplot at 0x109573210>)
+\end{Verbatim}
+        
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{hubbard_files/Hubbard Model - Part 3, QuTiP code_44_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}61}]:} \PY{n}{hamiltonianHeisenberg}\PY{p}{(}\PY{n}{N}\PY{o}{=}\PY{l+m+mi}{8}\PY{p}{,}\PY{n}{periodic}\PY{o}{=}\PY{n+nb+bp}{False}\PY{p}{)}
+\end{Verbatim}
+\texttt{\color{outcolor}Out[{\color{outcolor}61}]:}
+    
+    Quantum object: dims = {[}{[}2, 2, 2, 2, 2, 2, 2, 2{]}, {[}2, 2, 2, 2,
+2, 2, 2, 2{]}{]}, shape = {[}256, 256{]}, type = oper, isherm = True
+
+\begin{equation*}\left(\begin{array}{*{11}c}-7.0 & 0.0 & 0.0 & -0.500 & 0.0 & \cdots & 0.0 & 0.0 & 0.0 & 0.0 & 0.0\\0.0 & -5.0 & 0.0 & 0.0 & 0.0 & \cdots & 0.0 & 0.0 & 0.0 & 0.0 & 0.0\\0.0 & 0.0 & -3.0 & 0.0 & 0.0 & \cdots & 0.0 & 0.0 & 0.0 & 0.0 & 0.0\\-0.500 & 0.0 & 0.0 & -5.0 & 0.0 & \cdots & 0.0 & 0.0 & 0.0 & 0.0 & 0.0\\0.0 & 0.0 & 0.0 & 0.0 & -3.0 & \cdots & 0.0 & 0.0 & 0.0 & 0.0 & 0.0\\\vdots & \vdots & \vdots & \vdots & \vdots & \ddots & \vdots & \vdots & \vdots & \vdots & \vdots\\0.0 & 0.0 & 0.0 & 0.0 & 0.0 & \cdots & -3.0 & 0.0 & 0.0 & 0.0 & 0.0\\0.0 & 0.0 & 0.0 & 0.0 & 0.0 & \cdots & 0.0 & -5.0 & 0.0 & 0.0 & -0.500\\0.0 & 0.0 & 0.0 & 0.0 & 0.0 & \cdots & 0.0 & 0.0 & -3.0 & 0.0 & 0.0\\0.0 & 0.0 & 0.0 & 0.0 & 0.0 & \cdots & 0.0 & 0.0 & 0.0 & -5.0 & 0.0\\0.0 & 0.0 & 0.0 & 0.0 & 0.0 & \cdots & 0.0 & -0.500 & 0.0 & 0.0 & -7.0\\\end{array}\right)\end{equation*}
+
+    
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}62}]:} \PY{n}{plot\PYZus{}energy\PYZus{}levels}\PY{p}{(}\PY{p}{[}\PY{n}{\PYZus{}61}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}62}]:} (<matplotlib.figure.Figure at 0x109a87f10>,
+          <matplotlib.axes.\_subplots.AxesSubplot at 0x109a87d90>)
+\end{Verbatim}
+        
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{hubbard_files/Hubbard Model - Part 3, QuTiP code_46_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}63}]:} \PY{n}{hamiltonianHeisenberg}\PY{p}{(}\PY{n}{N}\PY{o}{=}\PY{l+m+mi}{8}\PY{p}{,}\PY{n}{periodic}\PY{o}{=}\PY{n+nb+bp}{True}\PY{p}{)}
+\end{Verbatim}
+\texttt{\color{outcolor}Out[{\color{outcolor}63}]:}
+    
+    Quantum object: dims = {[}{[}2, 2, 2, 2, 2, 2, 2, 2{]}, {[}2, 2, 2, 2,
+2, 2, 2, 2{]}{]}, shape = {[}256, 256{]}, type = oper, isherm = True
+
+\begin{equation*}\left(\begin{array}{*{11}c}-8.0 & 0.0 & 0.0 & -0.500 & 0.0 & \cdots & 0.0 & 0.0 & 0.0 & 0.0 & 0.0\\0.0 & -4.0 & 0.0 & 0.0 & 0.0 & \cdots & 0.0 & 0.0 & 0.0 & 0.0 & 0.0\\0.0 & 0.0 & -4.0 & 0.0 & 0.0 & \cdots & 0.0 & 0.0 & 0.0 & 0.0 & 0.0\\-0.500 & 0.0 & 0.0 & -4.0 & 0.0 & \cdots & 0.0 & 0.0 & 0.0 & 0.0 & 0.0\\0.0 & 0.0 & 0.0 & 0.0 & -4.0 & \cdots & 0.0 & 0.0 & 0.0 & 0.0 & 0.0\\\vdots & \vdots & \vdots & \vdots & \vdots & \ddots & \vdots & \vdots & \vdots & \vdots & \vdots\\0.0 & 0.0 & 0.0 & 0.0 & 0.0 & \cdots & -4.0 & 0.0 & 0.0 & 0.0 & 0.0\\0.0 & 0.0 & 0.0 & 0.0 & 0.0 & \cdots & 0.0 & -4.0 & 0.0 & 0.0 & -0.500\\0.0 & 0.0 & 0.0 & 0.0 & 0.0 & \cdots & 0.0 & 0.0 & -4.0 & 0.0 & 0.0\\0.0 & 0.0 & 0.0 & 0.0 & 0.0 & \cdots & 0.0 & 0.0 & 0.0 & -4.0 & 0.0\\0.0 & 0.0 & 0.0 & 0.0 & 0.0 & \cdots & 0.0 & -0.500 & 0.0 & 0.0 & -8.0\\\end{array}\right)\end{equation*}
+
+    
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}64}]:} \PY{n}{plot\PYZus{}energy\PYZus{}levels}\PY{p}{(}\PY{p}{[}\PY{n}{\PYZus{}63}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}64}]:} (<matplotlib.figure.Figure at 0x10b4f6e90>,
+          <matplotlib.axes.\_subplots.AxesSubplot at 0x10b4e62d0>)
+\end{Verbatim}
+        
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{hubbard_files/Hubbard Model - Part 3, QuTiP code_48_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsection{Vacuum State, Basis States}\label{vacuum-state-basis-states}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}65}]:} \PY{k}{def} \PY{n+nf}{stateVacuum}\PY{p}{(}\PY{n}{N} \PY{o}{=} \PY{l+m+mi}{10}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{} Returns a QuTiP object representing the vacuum state for a spin\PYZhy{}chain with N sites \PYZsq{}\PYZsq{}\PYZsq{}}
+             
+             \PY{n}{state} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+             
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{N}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{state}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{basis}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{)}
+             
+             \PY{k}{return} \PY{n}{tensor}\PY{p}{(}\PY{n}{state}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}66}]:} \PY{n}{stateVacuum}\PY{p}{(}\PY{n}{N}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{)}
+\end{Verbatim}
+\texttt{\color{outcolor}Out[{\color{outcolor}66}]:}
+    
+    Quantum object: dims = {[}{[}2, 2, 2{]}, {[}1, 1, 1{]}{]}, shape = {[}8,
+1{]}, type = ket
+
+\begin{equation*}\left(\begin{array}{*{11}c}1.0\\0.0\\0.0\\0.0\\0.0\\0.0\\0.0\\0.0\\\end{array}\right)\end{equation*}
+
+    
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}67}]:} \PY{k}{def} \PY{n+nf}{stateUpK}\PY{p}{(}\PY{n}{k} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{,} \PY{n}{N} \PY{o}{=} \PY{l+m+mi}{10}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{} Returns a QuTiP object representating a state with the k\PYZca{}th spin pointing up and the rest pointing}
+         \PY{l+s+sd}{    down for a N site spin\PYZhy{}chain. \PYZsq{}\PYZsq{}\PYZsq{}}
+             
+             \PY{n}{state} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+             
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{N}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{state}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{basis}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{)}
+                 
+             \PY{n}{state}\PY{p}{[}\PY{n}{k}\PY{p}{]} \PY{o}{=} \PY{n}{basis}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+             
+             \PY{k}{return} \PY{n}{tensor}\PY{p}{(}\PY{n}{state}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}68}]:} \PY{n}{stateUpK}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{)}
+\end{Verbatim}
+\texttt{\color{outcolor}Out[{\color{outcolor}68}]:}
+    
+    Quantum object: dims = {[}{[}2, 2, 2{]}, {[}1, 1, 1{]}{]}, shape = {[}8,
+1{]}, type = ket
+
+\begin{equation*}\left(\begin{array}{*{11}c}0.0\\1.0\\0.0\\0.0\\0.0\\0.0\\0.0\\0.0\\\end{array}\right)\end{equation*}
+
+    
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}69}]:} \PY{k}{def} \PY{n+nf}{stateDownK}\PY{p}{(}\PY{n}{k} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{,} \PY{n}{N} \PY{o}{=} \PY{l+m+mi}{10}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{} Returns a QuTiP object representating a state with the k\PYZca{}th spin pointing down and the rest pointing}
+         \PY{l+s+sd}{    up for a N site spin\PYZhy{}chain. \PYZsq{}\PYZsq{}\PYZsq{}}
+             
+             \PY{n}{state} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+             
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{N}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{state}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{basis}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+                 
+             \PY{n}{state}\PY{p}{[}\PY{n}{k}\PY{p}{]} \PY{o}{=} \PY{n}{basis}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{)}
+             
+             \PY{k}{return} \PY{n}{tensor}\PY{p}{(}\PY{n}{state}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}70}]:} \PY{n}{stateDownK}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{)}
+\end{Verbatim}
+\texttt{\color{outcolor}Out[{\color{outcolor}70}]:}
+    
+    Quantum object: dims = {[}{[}2, 2, 2{]}, {[}1, 1, 1{]}{]}, shape = {[}8,
+1{]}, type = ket
+
+\begin{equation*}\left(\begin{array}{*{11}c}0.0\\0.0\\0.0\\0.0\\0.0\\0.0\\1.0\\0.0\\\end{array}\right)\end{equation*}
+
+    
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}71}]:} \PY{k}{def} \PY{n+nf}{stateBasisListDown}\PY{p}{(}\PY{n}{N} \PY{o}{=} \PY{l+m+mi}{10}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{} Returns a list of QuTiP objects, whose elements are the mutually orthogonal basis states, with mostly}
+         \PY{l+s+sd}{    down spins, of a spin\PYZhy{}chain with N sites. \PYZsq{}\PYZsq{}\PYZsq{}}
+             
+             \PY{n}{basisList} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+             
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{N}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{basisList}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{stateDownK}\PY{p}{(}\PY{n}{i}\PY{p}{,}\PY{n}{N}\PY{p}{)}\PY{p}{)}
+                 
+             \PY{k}{return} \PY{n}{basisList}
+         
+         \PY{k}{def} \PY{n+nf}{stateBasisListUp}\PY{p}{(}\PY{n}{N} \PY{o}{=} \PY{l+m+mi}{10}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{} Returns a list of QuTiP objects, whose elements are the mutually orthogonal basis states, with mostly}
+         \PY{l+s+sd}{    up spins, of a spin\PYZhy{}chain with N sites. \PYZsq{}\PYZsq{}\PYZsq{}}
+             
+             \PY{n}{basisList} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+             
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{N}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{basisList}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{stateUpK}\PY{p}{(}\PY{n}{i}\PY{p}{,}\PY{n}{N}\PY{p}{)}\PY{p}{)}
+                 
+             \PY{k}{return} \PY{n}{basisList}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}72}]:} \PY{n}{stateBasisListDown}\PY{p}{(}\PY{n}{N}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}72}]:} [Quantum object: dims = [[2, 2, 2], [1, 1, 1]], shape = [8, 1], type = ket
+          Qobj data =
+          [[ 0.]
+           [ 0.]
+           [ 0.]
+           [ 1.]
+           [ 0.]
+           [ 0.]
+           [ 0.]
+           [ 0.]],
+          Quantum object: dims = [[2, 2, 2], [1, 1, 1]], shape = [8, 1], type = ket
+          Qobj data =
+          [[ 0.]
+           [ 0.]
+           [ 0.]
+           [ 0.]
+           [ 0.]
+           [ 1.]
+           [ 0.]
+           [ 0.]],
+          Quantum object: dims = [[2, 2, 2], [1, 1, 1]], shape = [8, 1], type = ket
+          Qobj data =
+          [[ 0.]
+           [ 0.]
+           [ 0.]
+           [ 0.]
+           [ 0.]
+           [ 0.]
+           [ 1.]
+           [ 0.]]]
+\end{Verbatim}
+        
+    \subsection{Jordan-Wigner
+Transformation}\label{jordan-wigner-transformation}
+
+Given a n-qubit system, with Pauli operator \$ X\_i, Y\_i, Z\_i \$
+acting on each qubit, we can define a set of \textbf{\emph{fermionic}}
+operators \$ \{a\_j\} \$
+
+\[ a_j = -\left(\otimes_{i=1}^{j-1} Z_i \right) \otimes \sigma_j \]
+
+The function \texttt{jordanWignerDestroyI(i,N)} returns the fermionic
+destruction operator \(a_i\) for the \(i^\text{th}\) site of a N-site
+qubit chain.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}74}]:} \PY{k}{def} \PY{n+nf}{jordanWignerDestroyI}\PY{p}{(}\PY{n}{i} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{,} \PY{n}{N} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{} Returns the fermionic annihilation operator for the i\PYZca{}th site of a N site spin\PYZhy{}chain:}
+         \PY{l+s+sd}{    a\PYZus{}i = Z\PYZus{}1 x Z\PYZus{}2 ... x Z\PYZus{}\PYZob{}i\PYZhy{}1\PYZcb{} x sigma\PYZus{}i}
+         \PY{l+s+sd}{    where Z\PYZus{}i is the Pauli sigma\PYZus{}z matrix acting on the i\PYZca{}th site and sigma\PYZus{}i is the density}
+         \PY{l+s+sd}{    matrix acting on the i\PYZca{}th qubit, given by:}
+         \PY{l+s+sd}{    sigma\PYZus{}i = id\PYZus{}1 x id\PYZus{}2 ... x id\PYZus{}\PYZob{}i\PYZhy{}1\PYZcb{} x |0\PYZgt{}\PYZlt{}1| x id\PYZus{}\PYZob{}i+1\PYZcb{} ... x id\PYZus{}n}
+         \PY{l+s+sd}{    where id\PYZus{}i is the identity operator}
+         \PY{l+s+sd}{    }
+         \PY{l+s+sd}{    Reference: Nielsen, Fermionic CCR and Jordan Wigner Transformation}
+         \PY{l+s+sd}{    \PYZsq{}\PYZsq{}\PYZsq{}}
+             
+             \PY{c}{\PYZsh{} create zop, assign to it identity operator for N site system}
+             \PY{n}{zop} \PY{o}{=} \PY{n}{tensor}\PY{p}{(}\PY{p}{[}\PY{n}{qeye}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{]}\PY{o}{*}\PY{n}{N}\PY{p}{)}
+             
+             \PY{c}{\PYZsh{} for k in (0..i\PYZhy{}1), create Z\PYZus{}k operator for N\PYZhy{}site chain}
+             \PY{c}{\PYZsh{} zop is product of Z\PYZus{}1 * Z\PYZus{}2 ... * Z\PYZus{}\PYZob{}i\PYZhy{}1\PYZcb{}}
+             
+             \PY{k}{for} \PY{n}{k} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{i}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{zop} \PY{o}{*}\PY{o}{=} \PY{n}{posOperatorN}\PY{p}{(}\PY{n}{sigmaz}\PY{p}{(}\PY{p}{)}\PY{p}{,}\PY{n}{i} \PY{o}{=} \PY{n}{k}\PY{p}{,} \PY{n}{N} \PY{o}{=} \PY{n}{N}\PY{p}{)}
+             
+             \PY{c}{\PYZsh{} create single qubit density matrix |0\PYZgt{}\PYZlt{}1|}
+             
+             \PY{n}{sigmai} \PY{o}{=} \PY{n}{ket}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{o}{*}\PY{n}{bra}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+             
+             \PY{c}{\PYZsh{} create list of N single\PYZhy{}site identity operators}
+             
+             \PY{n}{op\PYZus{}list} \PY{o}{=} \PY{n}{identityList}\PY{p}{(}\PY{n}{N} \PY{o}{=} \PY{n}{N}\PY{p}{)}
+         
+             \PY{c}{\PYZsh{} assign single qubit density matrix |0\PYZgt{}\PYZlt{}1| to i\PYZca{}th item of above list}
+             
+             \PY{n}{op\PYZus{}list}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{sigmai}
+             
+             \PY{c}{\PYZsh{} take the tensor product of resulting list to obtain operator for density matrix |0\PYZgt{}\PYZlt{}1|}
+             \PY{c}{\PYZsh{} acting on i\PYZca{}th qubit of N\PYZhy{}site chain.}
+             
+             \PY{n}{sigmaop} \PY{o}{=} \PY{n}{tensor}\PY{p}{(}\PY{n}{op\PYZus{}list}\PY{p}{)}
+             
+             \PY{c}{\PYZsh{} return zop*sigmaop = Z\PYZus{}1 x Z\PYZus{}2 .. x Z\PYZus{}\PYZob{}i\PYZhy{}1\PYZcb{} x sigma\PYZus{}i, which is fermionic annihilation}
+             \PY{c}{\PYZsh{} operator for i\PYZca{}th site of N\PYZhy{}site spin\PYZhy{}chain.}
+             
+             \PY{k}{return} \PY{n}{zop} \PY{o}{*} \PY{n}{sigmaop}
+             
+             
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}75}]:} \PY{n}{jordanWignerDestroyI}\PY{p}{(}\PY{n}{i}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{,}\PY{n}{N}\PY{o}{=}\PY{l+m+mi}{7}\PY{p}{)}
+\end{Verbatim}
+\texttt{\color{outcolor}Out[{\color{outcolor}75}]:}
+    
+    Quantum object: dims = {[}{[}2, 2, 2, 2, 2, 2, 2{]}, {[}2, 2, 2, 2, 2,
+2, 2{]}{]}, shape = {[}128, 128{]}, type = oper, isherm = False
+
+\begin{equation*}\left(\begin{array}{*{11}c}0.0 & 0.0 & 0.0 & 0.0 & 0.0 & \cdots & 0.0 & 0.0 & 0.0 & 0.0 & 0.0\\0.0 & 0.0 & 0.0 & 0.0 & 0.0 & \cdots & 0.0 & 0.0 & 0.0 & 0.0 & 0.0\\0.0 & 0.0 & 0.0 & 0.0 & 0.0 & \cdots & 0.0 & 0.0 & 0.0 & 0.0 & 0.0\\0.0 & 0.0 & 0.0 & 0.0 & 0.0 & \cdots & 0.0 & 0.0 & 0.0 & 0.0 & 0.0\\0.0 & 0.0 & 0.0 & 0.0 & 0.0 & \cdots & 0.0 & 0.0 & 0.0 & 0.0 & 0.0\\\vdots & \vdots & \vdots & \vdots & \vdots & \ddots & \vdots & \vdots & \vdots & \vdots & \vdots\\0.0 & 0.0 & 0.0 & 0.0 & 0.0 & \cdots & 0.0 & 0.0 & 0.0 & 0.0 & 0.0\\0.0 & 0.0 & 0.0 & 0.0 & 0.0 & \cdots & 0.0 & 0.0 & 0.0 & 0.0 & 0.0\\0.0 & 0.0 & 0.0 & 0.0 & 0.0 & \cdots & 0.0 & 0.0 & 0.0 & 0.0 & 0.0\\0.0 & 0.0 & 0.0 & 0.0 & 0.0 & \cdots & 0.0 & 0.0 & 0.0 & 0.0 & 0.0\\0.0 & 0.0 & 0.0 & 0.0 & 0.0 & \cdots & 0.0 & 0.0 & 0.0 & 0.0 & 0.0\\\end{array}\right)\end{equation*}
+
+    
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}76}]:} \PY{n}{a4of7} \PY{o}{=} \PY{n}{jordanWignerDestroyI}\PY{p}{(}\PY{n}{i}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{,}\PY{n}{N}\PY{o}{=}\PY{l+m+mi}{7}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}77}]:} \PY{n}{commutator}\PY{p}{(}\PY{n}{a4of7}\PY{p}{,} \PY{n}{a4of7}\PY{o}{.}\PY{n}{dag}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{kind}\PY{o}{=}\PY{l+s}{\PYZsq{}}\PY{l+s}{anti}\PY{l+s}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+\texttt{\color{outcolor}Out[{\color{outcolor}77}]:}
+    
+    Quantum object: dims = {[}{[}2, 2, 2, 2, 2, 2, 2{]}, {[}2, 2, 2, 2, 2,
+2, 2{]}{]}, shape = {[}128, 128{]}, type = oper, isherm = True
+
+\begin{equation*}\left(\begin{array}{*{11}c}1.0 & 0.0 & 0.0 & 0.0 & 0.0 & \cdots & 0.0 & 0.0 & 0.0 & 0.0 & 0.0\\0.0 & 1.0 & 0.0 & 0.0 & 0.0 & \cdots & 0.0 & 0.0 & 0.0 & 0.0 & 0.0\\0.0 & 0.0 & 1.0 & 0.0 & 0.0 & \cdots & 0.0 & 0.0 & 0.0 & 0.0 & 0.0\\0.0 & 0.0 & 0.0 & 1.0 & 0.0 & \cdots & 0.0 & 0.0 & 0.0 & 0.0 & 0.0\\0.0 & 0.0 & 0.0 & 0.0 & 1.0 & \cdots & 0.0 & 0.0 & 0.0 & 0.0 & 0.0\\\vdots & \vdots & \vdots & \vdots & \vdots & \ddots & \vdots & \vdots & \vdots & \vdots & \vdots\\0.0 & 0.0 & 0.0 & 0.0 & 0.0 & \cdots & 1.0 & 0.0 & 0.0 & 0.0 & 0.0\\0.0 & 0.0 & 0.0 & 0.0 & 0.0 & \cdots & 0.0 & 1.0 & 0.0 & 0.0 & 0.0\\0.0 & 0.0 & 0.0 & 0.0 & 0.0 & \cdots & 0.0 & 0.0 & 1.0 & 0.0 & 0.0\\0.0 & 0.0 & 0.0 & 0.0 & 0.0 & \cdots & 0.0 & 0.0 & 0.0 & 1.0 & 0.0\\0.0 & 0.0 & 0.0 & 0.0 & 0.0 & \cdots & 0.0 & 0.0 & 0.0 & 0.0 & 1.0\\\end{array}\right)\end{equation*}
+
+    
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}78}]:} \PY{k}{def} \PY{n+nf}{offDiagBelow}\PY{p}{(}\PY{n}{N}\PY{p}{,}\PY{n}{a}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{l+s+sd}{    Returns a NxN array with the elements below the diagonal set to a}
+         \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+             \PY{k}{return} \PY{n}{a}\PY{o}{*}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{tri}\PY{p}{(}\PY{n}{N}\PY{p}{,}\PY{n}{N}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{n}{np}\PY{o}{.}\PY{n}{tri}\PY{p}{(}\PY{n}{N}\PY{p}{,}\PY{n}{N}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
+         
+         \PY{k}{def} \PY{n+nf}{offDiagAbove}\PY{p}{(}\PY{n}{N}\PY{p}{,}\PY{n}{a}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{l+s+sd}{    Returns a NxN array with the elements above the diagonal set to a}
+         \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+             \PY{k}{return} \PY{n}{a}\PY{o}{*}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{tri}\PY{p}{(}\PY{n}{N}\PY{p}{,}\PY{n}{N}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{n}{np}\PY{o}{.}\PY{n}{tri}\PY{p}{(}\PY{n}{N}\PY{p}{,}\PY{n}{N}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}69}]:} \PY{k+kn}{import} \PY{n+nn}{sympy} \PY{k+kn}{as} \PY{n+nn}{sp}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}71}]:} \PY{n}{vara}\PY{p}{,} \PY{n}{varb} \PY{o}{=} \PY{n}{sp}\PY{o}{.}\PY{n}{var}\PY{p}{(}\PY{l+s}{\PYZsq{}}\PY{l+s}{a}\PY{l+s}{\PYZsq{}}\PY{p}{)}\PY{p}{,} \PY{n}{sp}\PY{o}{.}\PY{n}{var}\PY{p}{(}\PY{l+s}{\PYZsq{}}\PY{l+s}{b}\PY{l+s}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{vara}\PY{p}{,} \PY{n}{varb}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}71}]:} (a, b)
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}72}]:} \PY{c}{\PYZsh{} sympy can take a numpy object as input and return a sympy object,}
+         \PY{c}{\PYZsh{} on which we can then perform symbolic computations}
+         \PY{n}{sp}\PY{o}{.}\PY{n}{Matrix}\PY{p}{(}\PY{n}{offDiagAbove}\PY{p}{(}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}72}]:} Matrix([
+         [0.0, 1.0, 0.0, 0.0],
+         [0.0, 0.0, 1.0, 0.0],
+         [0.0, 0.0, 0.0, 1.0],
+         [0.0, 0.0, 0.0, 0.0]])
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}73}]:} \PY{n}{mat1} \PY{o}{=} \PY{n}{varb}\PY{o}{*}\PY{n}{sp}\PY{o}{.}\PY{n}{Matrix}\PY{p}{(}\PY{n}{offDiagAbove}\PY{p}{(}\PY{l+m+mi}{4}\PY{p}{)}\PY{o}{+}\PY{n}{offDiagBelow}\PY{p}{(}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)}
+         \PY{n}{mat1}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}73}]:} Matrix([
+         [    0, 1.0*b,     0,     0],
+         [1.0*b,     0, 1.0*b,     0],
+         [    0, 1.0*b,     0, 1.0*b],
+         [    0,     0, 1.0*b,     0]])
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}75}]:} \PY{n}{mat1} \PY{o}{+}\PY{o}{=} \PY{n}{vara}\PY{o}{*}\PY{n}{sp}\PY{o}{.}\PY{n}{eye}\PY{p}{(}\PY{l+m+mi}{4}\PY{p}{)}
+         \PY{n}{mat1}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}75}]:} Matrix([
+         [    a, 1.0*b,     0,     0],
+         [1.0*b,     a, 1.0*b,     0],
+         [    0, 1.0*b,     a, 1.0*b],
+         [    0,     0, 1.0*b,     a]])
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}77}]:} \PY{n}{mat1}\PY{o}{.}\PY{n}{eigenvals}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}77}]:} \{a + b/2 - sqrt(5)*sqrt(b**2)/2: 1,
+          a + b/2 + sqrt(5)*sqrt(b**2)/2: 1,
+          a - b/2 + sqrt(5)*sqrt(b**2)/2: 1,
+          a - b/2 - sqrt(5)*sqrt(b**2)/2: 1\}
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}83}]:} \PY{k}{for} \PY{n}{k} \PY{o+ow}{in} \PY{n}{\PYZus{}77}\PY{o}{.}\PY{n}{keys}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+             \PY{k}{print} \PY{n}{sp}\PY{o}{.}\PY{n}{expand}\PY{p}{(}\PY{n}{k}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+a + b/2 - sqrt(5)*sqrt(b**2)/2
+a + b/2 + sqrt(5)*sqrt(b**2)/2
+a - b/2 + sqrt(5)*sqrt(b**2)/2
+a - b/2 - sqrt(5)*sqrt(b**2)/2
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}84}]:} \PY{n}{sp}\PY{o}{.}\PY{n}{simplify}\PY{p}{(}\PY{n}{sp}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{varb}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}84}]:} sqrt(b**2)
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{n}{ising}\PY{o}{.}\PY{n}{eigenenergies}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}22}]:} array([-2.5, -2.5, -2. , {\ldots},  2. ,  2.5,  2.5])
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}26}]:} \PY{k}{class} \PY{n+nc}{Hamiltonian}\PY{p}{(}\PY{n}{Qobj}\PY{p}{)}\PY{p}{:}
+             
+             \PY{n}{\PYZus{}hamTypes} \PY{o}{=} \PY{p}{[}\PY{l+s}{\PYZsq{}}\PY{l+s}{NumberOp}\PY{l+s}{\PYZsq{}}\PY{p}{,} \PY{l+s}{\PYZsq{}}\PY{l+s}{Ising}\PY{l+s}{\PYZsq{}}\PY{p}{,} \PY{l+s}{\PYZsq{}}\PY{l+s}{Heisenberg}\PY{l+s}{\PYZsq{}}\PY{p}{]}
+             \PY{n}{\PYZus{}hamType} \PY{o}{=} \PY{l+s}{\PYZsq{}}\PY{l+s}{\PYZsq{}}
+             \PY{n}{\PYZus{}maxSites} \PY{o}{=} \PY{l+m+mi}{100}
+             \PY{n}{\PYZus{}numSites} \PY{o}{=} \PY{l+m+mi}{1}
+             \PY{n}{\PYZus{}dims} \PY{o}{=} \PY{l+m+mi}{2}
+             \PY{n}{\PYZus{}label} \PY{o}{=} \PY{n+nb+bp}{None}
+             \PY{n}{\PYZus{}data} \PY{o}{=} \PY{n+nb+bp}{None}
+             
+             \PY{n}{\PYZus{}hamiltonian} \PY{o}{=} \PY{n}{Qobj}\PY{p}{(}\PY{p}{)}
+             \PY{n}{\PYZus{}eigenenergies} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+             \PY{n}{\PYZus{}eigenstates} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+             \PY{n}{\PYZus{}isHermitian} \PY{o}{=} \PY{n+nb+bp}{True}
+             
+             \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{n+nb+bp}{None}\PY{p}{,} \PY{n}{dims}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{isHermitian}\PY{o}{=}\PY{n+nb+bp}{True}\PY{p}{,}\PYZbs{}
+                          \PY{n}{numSites}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{hamType}\PY{o}{=}\PY{n+nb+bp}{None}\PY{p}{,}\PY{n}{data}\PY{o}{=}\PY{n+nb+bp}{None}\PY{p}{)}\PY{p}{:}
+         \PY{c}{\PYZsh{}        try:}
+         \PY{c}{\PYZsh{}            from qutip import *}
+         \PY{c}{\PYZsh{}        except:}
+         \PY{c}{\PYZsh{}            raise NameError(\PYZsq{}QuTiP is not installed\PYZsq{})}
+                 
+                 \PY{k}{if} \PY{n}{numSites}\PY{o}{\PYZlt{}}\PY{l+m+mi}{1} \PY{o+ow}{or} \PY{o+ow}{not} \PY{n+nb}{isinstance}\PY{p}{(}\PY{n}{numSites}\PY{p}{,}\PY{n+nb}{int}\PY{p}{)}\PY{p}{:}
+                     \PY{k}{raise} \PY{n+ne}{ValueError}\PY{p}{(}\PY{l+s}{\PYZsq{}}\PY{l+s}{numSites must be an integer greater than or equal to 1}\PY{l+s}{\PYZsq{}}\PY{p}{)}
+                 \PY{k}{if} \PY{n}{numSites}\PY{o}{\PYZgt{}}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}maxSites}\PY{p}{:}
+                     \PY{k}{raise} \PY{n+ne}{ValueError}\PY{p}{(}\PY{l+s}{\PYZsq{}}\PY{l+s}{numSites cannot be greater than }\PY{l+s}{\PYZsq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}maxSites}\PY{p}{)}\PY{p}{)}
+                 \PY{k}{else}\PY{p}{:}
+                     \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}numSites} \PY{o}{=} \PY{n}{numSites}
+                 
+                 \PY{k}{if} \PY{n}{label}\PY{o}{!=}\PY{n+nb+bp}{None} \PY{o+ow}{and} \PY{n+nb}{isinstance}\PY{p}{(}\PY{n}{label}\PY{p}{,} \PY{n+nb}{str}\PY{p}{)}\PY{p}{:}
+                     \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}label} \PY{o}{=} \PY{n}{label}
+                     
+                 \PY{k}{if} \PY{n}{data}\PY{o}{!=}\PY{n+nb+bp}{None}\PY{p}{:}
+                     \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}data} \PY{o}{=} \PY{n}{data}
+         
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}isHermitian} \PY{o}{=} \PY{n}{isHermitian}
+                 
+                 \PY{k}{if} \PY{n}{hamType} \PY{o}{!=} \PY{n+nb+bp}{None}\PY{p}{:}
+                     \PY{k}{if} \PY{n}{hamType} \PY{o+ow}{not} \PY{o+ow}{in} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}hamTypes}\PY{p}{:}
+                         \PY{k+kn}{from} \PY{n+nn}{string} \PY{k+kn}{import} \PY{n}{join}
+                         \PY{k}{raise} \PY{n+ne}{ValueError}\PY{p}{(}\PY{l+s}{\PYZsq{}}\PY{l+s}{hamType must be one of }\PY{l+s}{\PYZsq{}} \PY{o}{+} \PY{n}{join}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}hamTypes}\PY{p}{,}\PY{l+s}{\PYZsq{}}\PY{l+s}{, }\PY{l+s}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+                     \PY{k}{else}\PY{p}{:}
+                         \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}hamType} \PY{o}{=} \PY{n}{hamType}
+                         \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{createHamiltonian}\PY{p}{(}\PY{p}{)}
+                 \PY{k}{else}\PY{p}{:}
+                     \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}hamiltonian} \PY{o}{=} \PY{n}{Qobj}\PY{p}{(}\PY{p}{)}
+                 
+                 \PY{k}{if} \PY{n}{dims} \PY{o}{\PYZlt{}} \PY{l+m+mi}{2} \PY{o+ow}{or} \PY{o+ow}{not} \PY{n+nb}{isinstance}\PY{p}{(}\PY{n}{dims}\PY{p}{,} \PY{n+nb}{int}\PY{p}{)}\PY{p}{:}
+                     \PY{k}{raise} \PY{n+ne}{ValueError}\PY{p}{(}\PY{l+s}{\PYZsq{}}\PY{l+s}{dim must be an integer greater than or equal to 2}\PY{l+s}{\PYZsq{}}\PY{p}{)}
+                 \PY{k}{else}\PY{p}{:}
+                     \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}dims} \PY{o}{=} \PY{n}{dims}
+                     
+                 \PY{n}{Qobj}\PY{o}{.}\PY{n}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}hamiltonian}\PY{p}{)}
+                 
+                 \PY{k}{return}
+         
+             \PY{k}{def} \PY{n+nf}{createHamiltonian}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                 
+                 \PY{k}{if} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}hamType} \PY{o}{==} \PY{l+s}{\PYZsq{}}\PY{l+s}{Ising}\PY{l+s}{\PYZsq{}}\PY{p}{:}
+                     
+                     \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}hamiltonian} \PY{o}{=} \PY{n}{isingHamiltonian}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}numSites}\PY{p}{,}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}data}\PY{p}{[}\PY{l+s}{\PYZsq{}}\PY{l+s}{jcoefs}\PY{l+s}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}data}\PY{p}{[}\PY{l+s}{\PYZsq{}}\PY{l+s}{spin}\PY{l+s}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+                 
+                 \PY{k}{elif} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}hamType} \PY{o}{==} \PY{l+s}{\PYZsq{}}\PY{l+s}{Hubbard}\PY{l+s}{\PYZsq{}}\PY{p}{:}
+                     
+                     \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}hamiltonian} \PY{o}{=} \PY{n}{hubbardHamiltonian}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}numSites}\PY{p}{,} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}data}\PY{p}{[}\PY{l+s}{\PYZsq{}}\PY{l+s}{t}\PY{l+s}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PYZbs{}
+                                         \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}data}\PY{p}{[}\PY{l+s}{\PYZsq{}}\PY{l+s}{U}\PY{l+s}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}data}\PY{p}{[}\PY{l+s}{\PYZsq{}}\PY{l+s}{mu}\PY{l+s}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PYZbs{}
+                                         \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}data}\PY{p}{[}\PY{l+s}{\PYZsq{}}\PY{l+s}{shift}\PY{l+s}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}dims}\PY{p}{)}
+                     
+                 \PY{k}{elif} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}hamType} \PY{o}{==} \PY{l+s}{\PYZsq{}}\PY{l+s}{NumberOp}\PY{l+s}{\PYZsq{}}\PY{p}{:}
+                     
+                     \PY{n}{numOp} \PY{o}{=} \PY{n}{create}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}dims}\PY{p}{)}\PY{o}{*}\PY{n}{destroy}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}dims}\PY{p}{)}
+                     
+                     \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}hamiltonian} \PY{o}{=} \PY{n}{operHamiltonian}\PY{p}{(}\PY{n}{numOp}\PY{p}{,} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}numSites}\PY{p}{,} \PYZbs{}
+                                             \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}data}\PY{p}{[}\PY{l+s}{\PYZsq{}}\PY{l+s}{coefs}\PY{l+s}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}dims}\PY{p}{)}
+                 \PY{k}{return}
+                     
+             \PY{n+nd}{@property}
+             \PY{k}{def} \PY{n+nf}{hermitian}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{return} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}isHermitian}
+             
+             \PY{n+nd}{@hermitian.setter}
+             \PY{k}{def} \PY{n+nf}{hermitian}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{value}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{if} \PY{n+nb}{isinstance}\PY{p}{(}\PY{n}{value}\PY{p}{,} \PY{n+nb}{bool}\PY{p}{)}\PY{p}{:}
+                     \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}isHermitian} \PY{o}{=} \PY{n}{value}
+                 \PY{k}{else}\PY{p}{:}
+                     \PY{k}{raise} \PY{n+ne}{ValueError}\PY{p}{(}\PY{l+s}{\PYZsq{}}\PY{l+s}{hermitian must be a boolean data type}\PY{l+s}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}57}]:} \PY{n}{h2} \PY{o}{=} \PY{n}{Hamiltonian}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}50}]:} \PY{n}{h2}\PY{o}{.}\PY{n}{\PYZus{}hamTypes}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}50}]:} ['NumberOp', 'Ising', 'Heisenberg']
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}58}]:} \PY{n}{h2}\PY{o}{.}\PY{n}{eigenenergies}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+        ---------------------------------------------------------------------------
+
+        AttributeError                            Traceback (most recent call last)
+
+        <ipython-input-58-6533ad75d2a1> in <module>()
+    ----> 1 h2.eigenenergies()
+    
+
+        /Users/deepak/anaconda/lib/python2.7/site-packages/qutip/qobj.pyc in eigenenergies(self, sparse, sort, eigvals, tol, maxiter)
+       1321 
+       1322         """
+    -> 1323         return sp\_eigs(self.data, self.isherm, vecs=False, sparse=sparse,
+       1324                        sort=sort, eigvals=eigvals, tol=tol, maxiter=maxiter)
+       1325 
+
+
+        AttributeError: 'Hamiltonian' object has no attribute 'data'
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}37}]:} \PY{n}{np}\PY{o}{.}\PY{n}{linalg}\PY{o}{.}\PY{n}{svd}\PY{o}{?}
+\end{Verbatim}
+
+    \subsection{Schmidt Decomposition (Singular Value
+Decomposition)}\label{schmidt-decomposition-singular-value-decomposition}
+
+    We need to be able to perform the following tests:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Determine whether a given state is entangled or not
+\item
+  Determine whether a given density matrix represents a pure or a mixed
+  state
+\end{enumerate}
+
+In order to test of entanglement, we can use the Schmidt decomposition
+or the Singular Value Decomposition (SVD). Numpy implements the SVD in
+the module numpy.linalg.svd, which given a matrix \(A\) as argument,
+returns the SVD of \(A\), in the form of two unitary matrices \(U\),
+\(V\) and a diagonal matrix \(S\):
+
+\[ A = U \cdot S \cdot V \]
+
+Since \(S\) is diagonal (\$ S\_\{ij\} \equiv s\_i \delta\_\{ij\} \$),
+the elements of \(A\) can be written as:
+
+\begin{align}
+A_{ij} & = U_{ik} \cdot S_{km} \cdot V_{mj} \\
+       & = U_{ik} \cdot s_k \delta_{km} \cdot V_{mj} \\
+       & = s_k U_{ik} V_{kj}
+\end{align}
+
+\[  \]
+
+    Construct entangled state:
+\[ \fullket{\psi} = \frac{1}{\sqrt{2}} ( \fullket{00} + \fullket{11} ) \]
+
+    The state \(\fullket{\psi}\) can be written in the form:
+\[ \psi = \alpha_{ij} u_i \otimes v_j \] where
+\(u_i, v_i \in \{\fullket{0},\fullket{1}\}\) are basis vectors for the
+two Hilbert spaces \(H_1\) and \(H_2\). For the given state, the matrix
+\(\alpha_{ij}\) has the form:
+
+\[ 
+\alpha = \begin{pmatrix} 0.707 & 0 \\
+                         0     & 0.707 \end{pmatrix}
+\]
+
+If \(\fullket{\psi}\) is \textbf{not} entangled then in the SVD of the
+matrix \(\alpha_{ij}\): \[ \alpha = U \, S \, V \] the diagonal matrix
+\(S\) will have only one non-zero element.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}41}]:} \PY{n}{alpha} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{l+m+mf}{0.707}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mf}{0.707}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+         \PY{n}{alpha}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}41}]:} array([[ 0.707,  0.   ],
+                [ 0.   ,  0.707]])
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}42}]:} \PY{n}{alpha\PYZus{}svd} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linalg}\PY{o}{.}\PY{n}{svd}\PY{p}{(}\PY{n}{alpha}\PY{p}{)}
+         \PY{n}{alpha\PYZus{}svd}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}42}]:} (array([[ 1.,  0.],
+                 [ 0.,  1.]]), array([ 0.707,  0.707]), array([[ 1.,  0.],
+                 [ 0.,  1.]]))
+\end{Verbatim}
+        
+    From which we see that: \(U = V = \mathbf{1}\) and \$ S =
+\text{diag}(0.707,0.707) \$, where \(S\) has more than one non-zero
+element and therefore we conclude that \(\fullket{\psi}\) is entangled.
+
+Of course, this is a trivial example, since the SVD can be read off from
+looking the expression for \(\alpha_{ij}\).
+
+    \subsection{Sandbox}\label{sandbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}123}]:} \PY{n}{hamiltonianIsing}\PY{p}{(}\PY{n}{N} \PY{o}{=} \PY{l+m+mi}{4}\PY{p}{,} \PY{n}{jcoefs} \PY{o}{=} \PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+\texttt{\color{outcolor}Out[{\color{outcolor}123}]:}
+    
+    Quantum object: dims = {[}{[}2, 2, 2, 2{]}, {[}2, 2, 2, 2{]}{]}, shape =
+{[}16, 16{]}, type = oper, isherm = True
+
+\begin{equation*}\left(\begin{array}{*{11}c}-1.0 & 0.0 & 0.0 & 0.0 & 0.0 & \cdots & 0.0 & 0.0 & 0.0 & 0.0 & 0.0\\0.0 & 0.0 & 0.0 & 0.0 & 0.0 & \cdots & 0.0 & 0.0 & 0.0 & 0.0 & 0.0\\0.0 & 0.0 & 0.0 & 0.0 & 0.0 & \cdots & 0.0 & 0.0 & 0.0 & 0.0 & 0.0\\0.0 & 0.0 & 0.0 & 0.0 & 0.0 & \cdots & 0.0 & 0.0 & 0.0 & 0.0 & 0.0\\0.0 & 0.0 & 0.0 & 0.0 & 0.0 & \cdots & 0.0 & 0.0 & 0.0 & 0.0 & 0.0\\\vdots & \vdots & \vdots & \vdots & \vdots & \ddots & \vdots & \vdots & \vdots & \vdots & \vdots\\0.0 & 0.0 & 0.0 & 0.0 & 0.0 & \cdots & 0.0 & 0.0 & 0.0 & 0.0 & 0.0\\0.0 & 0.0 & 0.0 & 0.0 & 0.0 & \cdots & 0.0 & 0.0 & 0.0 & 0.0 & 0.0\\0.0 & 0.0 & 0.0 & 0.0 & 0.0 & \cdots & 0.0 & 0.0 & 0.0 & 0.0 & 0.0\\0.0 & 0.0 & 0.0 & 0.0 & 0.0 & \cdots & 0.0 & 0.0 & 0.0 & 0.0 & 0.0\\0.0 & 0.0 & 0.0 & 0.0 & 0.0 & \cdots & 0.0 & 0.0 & 0.0 & 0.0 & -1.0\\\end{array}\right)\end{equation*}
+
+    
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}125}]:} \PY{n}{\PYZus{}123}\PY{o}{.}\PY{n}{eigenenergies}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}125}]:} array([-1., -1.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,
+                  0.,  1.,  1.])
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}104}]:} \PY{n}{hamiltonianIsing}\PY{p}{(}\PY{n}{N} \PY{o}{=} \PY{l+m+mi}{3}\PY{p}{)}
+\end{Verbatim}
+\texttt{\color{outcolor}Out[{\color{outcolor}104}]:}
+    
+    Quantum object: dims = {[}{[}2, 2, 2{]}, {[}2, 2, 2{]}{]}, shape = {[}8,
+8{]}, type = oper, isherm = True
+
+\begin{equation*}\left(\begin{array}{*{11}c}-0.500 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0\\0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0\\0.0 & 0.0 & 0.500 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0\\0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0\\0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0\\0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.500 & 0.0 & 0.0\\0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0\\0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & -0.500\\\end{array}\right)\end{equation*}
+
+    
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{hami}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}73}]:} \PY{n}{psi}\PY{o}{.}\PY{n}{dims}\PY{o}{?}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}77}]:} \PY{p}{[}\PY{n}{basis}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{]}\PY{o}{*}\PY{l+m+mi}{3}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}77}]:} [Quantum object: dims = [[2], [1]], shape = [2, 1], type = ket
+          Qobj data =
+          [[ 1.]
+           [ 0.]], Quantum object: dims = [[2], [1]], shape = [2, 1], type = ket
+          Qobj data =
+          [[ 1.]
+           [ 0.]], Quantum object: dims = [[2], [1]], shape = [2, 1], type = ket
+          Qobj data =
+          [[ 1.]
+           [ 0.]]]
+\end{Verbatim}
+        
+    Construct state corresponding to:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}85}]:} \PY{n}{psi2} \PY{o}{=} \PY{l+m+mi}{1}\PY{o}{/}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)} \PY{o}{*} \PY{p}{(}\PY{n}{tensor}\PY{p}{(}\PY{p}{[}\PY{n}{basis}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{]}\PY{o}{*}\PY{l+m+mi}{3}\PY{p}{)} \PY{o}{+} \PY{n}{tensor}\PY{p}{(}\PY{p}{[}\PY{n}{basis}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{]}\PY{o}{*}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{)}
+         \PY{n}{psi2}
+\end{Verbatim}
+\texttt{\color{outcolor}Out[{\color{outcolor}85}]:}
+    
+    Quantum object: dims = {[}{[}2, 2, 2{]}, {[}1, 1, 1{]}{]}, shape = {[}8,
+1{]}, type = ket
+
+\begin{equation*}\left(\begin{array}{*{11}c}0.707\\0.0\\0.0\\0.0\\0.0\\0.0\\0.0\\0.707\\\end{array}\right)\end{equation*}
+
+    
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}94}]:} \PY{n}{psi2}\PY{o}{.}\PY{n}{dims}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}94}]:} [[2, 2, 2], [1, 1, 1]]
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}98}]:} \PY{n}{num}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{)}\PY{o}{.}\PY{n}{unit}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+\texttt{\color{outcolor}Out[{\color{outcolor}98}]:}
+    
+    Quantum object: dims = {[}{[}3{]}, {[}3{]}{]}, shape = {[}3, 3{]}, type
+= oper, isherm = True
+
+\begin{equation*}\left(\begin{array}{*{11}c}0.0 & 0.0 & 0.0\\0.0 & 0.333 & 0.0\\0.0 & 0.0 & 0.667\\\end{array}\right)\end{equation*}
+
+    
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}102}]:} \PY{n}{basis}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+\end{Verbatim}
+\texttt{\color{outcolor}Out[{\color{outcolor}102}]:}
+    
+    Quantum object: dims = {[}{[}3{]}, {[}1{]}{]}, shape = {[}3, 1{]}, type
+= ket
+
+\begin{equation*}\left(\begin{array}{*{11}c}0.0\\1.0\\0.0\\\end{array}\right)\end{equation*}
+
+    
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}113}]:} \PY{n}{aj} \PY{o}{=} \PY{n}{sigmaz}\PY{p}{(}\PY{p}{)}\PY{o}{*}\PY{n}{ket}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{o}{*}\PY{n}{bra}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+          \PY{n}{aj}
+\end{Verbatim}
+\texttt{\color{outcolor}Out[{\color{outcolor}113}]:}
+    
+    Quantum object: dims = {[}{[}2{]}, {[}2{]}{]}, shape = {[}2, 2{]}, type
+= oper, isherm = False
+
+\begin{equation*}\left(\begin{array}{*{11}c}0.0 & 1.0\\0.0 & 0.0\\\end{array}\right)\end{equation*}
+
+    
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}116}]:} \PY{n}{commutator}\PY{p}{(}\PY{n}{aj}\PY{p}{,}\PY{n}{aj}\PY{o}{.}\PY{n}{dag}\PY{p}{(}\PY{p}{)}\PY{p}{,}\PY{n}{kind}\PY{o}{=}\PY{l+s}{\PYZsq{}}\PY{l+s}{anti}\PY{l+s}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+\texttt{\color{outcolor}Out[{\color{outcolor}116}]:}
+    
+    Quantum object: dims = {[}{[}2{]}, {[}2{]}{]}, shape = {[}2, 2{]}, type
+= oper, isherm = True
+
+\begin{equation*}\left(\begin{array}{*{11}c}1.0 & 0.0\\0.0 & 1.0\\\end{array}\right)\end{equation*}
+
+    
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}144}]:} \PY{n}{sz} \PY{o}{=} \PY{n}{sigmaz}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}156}]:} \PY{n}{sz1} \PY{o}{=} \PY{n}{tensor}\PY{p}{(}\PY{n}{sz}\PY{p}{,}\PY{n}{qeye}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{,}\PY{n}{qeye}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
+          \PY{n}{sz2} \PY{o}{=} \PY{n}{tensor}\PY{p}{(}\PY{n}{qeye}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{,}\PY{n}{sz}\PY{p}{,}\PY{n}{qeye}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
+          \PY{n}{sz1}\PY{p}{,} \PY{n}{sz2}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}156}]:} (Quantum object: dims = [[2, 2, 2], [2, 2, 2]], shape = [8, 8], type = oper, isherm = True
+           Qobj data =
+           [[ 1.  0.  0.  0.  0.  0.  0.  0.]
+            [ 0.  1.  0.  0.  0.  0.  0.  0.]
+            [ 0.  0.  1.  0.  0.  0.  0.  0.]
+            [ 0.  0.  0.  1.  0.  0.  0.  0.]
+            [ 0.  0.  0.  0. -1.  0.  0.  0.]
+            [ 0.  0.  0.  0.  0. -1.  0.  0.]
+            [ 0.  0.  0.  0.  0.  0. -1.  0.]
+            [ 0.  0.  0.  0.  0.  0.  0. -1.]],
+           Quantum object: dims = [[2, 2, 2], [2, 2, 2]], shape = [8, 8], type = oper, isherm = True
+           Qobj data =
+           [[ 1.  0.  0.  0.  0.  0.  0.  0.]
+            [ 0.  1.  0.  0.  0.  0.  0.  0.]
+            [ 0.  0. -1.  0.  0.  0.  0.  0.]
+            [ 0.  0.  0. -1.  0.  0.  0.  0.]
+            [ 0.  0.  0.  0.  1.  0.  0.  0.]
+            [ 0.  0.  0.  0.  0.  1.  0.  0.]
+            [ 0.  0.  0.  0.  0.  0. -1.  0.]
+            [ 0.  0.  0.  0.  0.  0.  0. -1.]])
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}157}]:} \PY{n}{sigma1} \PY{o}{=} \PY{n}{tensor}\PY{p}{(}\PY{n}{qeye}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{,}\PY{n}{qeye}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{,}\PY{p}{(}\PY{n}{ket}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{o}{*}\PY{n}{bra}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+          \PY{n}{sigma1}
+\end{Verbatim}
+\texttt{\color{outcolor}Out[{\color{outcolor}157}]:}
+    
+    Quantum object: dims = {[}{[}2, 2, 2{]}, {[}2, 2, 2{]}{]}, shape = {[}8,
+8{]}, type = oper, isherm = False
+
+\begin{equation*}\left(\begin{array}{*{11}c}0.0 & 1.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0\\0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0\\0.0 & 0.0 & 0.0 & 1.0 & 0.0 & 0.0 & 0.0 & 0.0\\0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0\\0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 1.0 & 0.0 & 0.0\\0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0\\0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 1.0\\0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0\\\end{array}\right)\end{equation*}
+
+    
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}158}]:} \PY{n}{aj1} \PY{o}{=} \PY{n}{sz1} \PY{o}{*} \PY{n}{sz2} \PY{o}{*} \PY{n}{sigma1}
+          \PY{n}{aj1}
+\end{Verbatim}
+\texttt{\color{outcolor}Out[{\color{outcolor}158}]:}
+    
+    Quantum object: dims = {[}{[}2, 2, 2{]}, {[}2, 2, 2{]}{]}, shape = {[}8,
+8{]}, type = oper, isherm = False
+
+\begin{equation*}\left(\begin{array}{*{11}c}0.0 & 1.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0\\0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0\\0.0 & 0.0 & 0.0 & -1.0 & 0.0 & 0.0 & 0.0 & 0.0\\0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0\\0.0 & 0.0 & 0.0 & 0.0 & 0.0 & -1.0 & 0.0 & 0.0\\0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0\\0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 1.0\\0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0\\\end{array}\right)\end{equation*}
+
+    
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}165}]:} \PY{n}{commutator}\PY{p}{(}\PY{n}{aj1}\PY{p}{,}\PY{n}{aj1}\PY{o}{.}\PY{n}{dag}\PY{p}{(}\PY{p}{)}\PY{p}{,}\PY{n}{kind}\PY{o}{=}\PY{l+s}{\PYZsq{}}\PY{l+s}{anti}\PY{l+s}{\PYZsq{}}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{n}{tensor}\PY{p}{(}\PY{p}{[}\PY{n}{qeye}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{]}\PY{o}{*}\PY{l+m+mi}{3}\PY{p}{)}
+\end{Verbatim}
+\texttt{\color{outcolor}Out[{\color{outcolor}165}]:}
+    
+    Quantum object: dims = {[}{[}2, 2, 2{]}, {[}2, 2, 2{]}{]}, shape = {[}8,
+8{]}, type = oper, isherm = True
+
+\begin{equation*}\left(\begin{array}{*{11}c}0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0\\0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0\\0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0\\0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0\\0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0\\0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0\\0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0\\0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0\\\end{array}\right)\end{equation*}
+
+    
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}129}]:} \PY{n}{M} \PY{o}{=} \PY{n}{tensor}\PY{p}{(}\PY{p}{[}\PY{n}{sigmaz}\PY{p}{(}\PY{p}{)}\PY{p}{]}\PY{o}{*}\PY{l+m+mi}{4}\PY{p}{)}
+          \PY{n}{M}
+\end{Verbatim}
+\texttt{\color{outcolor}Out[{\color{outcolor}129}]:}
+    
+    Quantum object: dims = {[}{[}2, 2, 2, 2{]}, {[}2, 2, 2, 2{]}{]}, shape =
+{[}16, 16{]}, type = oper, isherm = True
+
+\begin{equation*}\left(\begin{array}{*{11}c}1.0 & 0.0 & 0.0 & 0.0 & 0.0 & \cdots & 0.0 & 0.0 & 0.0 & 0.0 & 0.0\\0.0 & -1.0 & 0.0 & 0.0 & 0.0 & \cdots & 0.0 & 0.0 & 0.0 & 0.0 & 0.0\\0.0 & 0.0 & -1.0 & 0.0 & 0.0 & \cdots & 0.0 & 0.0 & 0.0 & 0.0 & 0.0\\0.0 & 0.0 & 0.0 & 1.0 & 0.0 & \cdots & 0.0 & 0.0 & 0.0 & 0.0 & 0.0\\0.0 & 0.0 & 0.0 & 0.0 & -1.0 & \cdots & 0.0 & 0.0 & 0.0 & 0.0 & 0.0\\\vdots & \vdots & \vdots & \vdots & \vdots & \ddots & \vdots & \vdots & \vdots & \vdots & \vdots\\0.0 & 0.0 & 0.0 & 0.0 & 0.0 & \cdots & -1.0 & 0.0 & 0.0 & 0.0 & 0.0\\0.0 & 0.0 & 0.0 & 0.0 & 0.0 & \cdots & 0.0 & 1.0 & 0.0 & 0.0 & 0.0\\0.0 & 0.0 & 0.0 & 0.0 & 0.0 & \cdots & 0.0 & 0.0 & -1.0 & 0.0 & 0.0\\0.0 & 0.0 & 0.0 & 0.0 & 0.0 & \cdots & 0.0 & 0.0 & 0.0 & -1.0 & 0.0\\0.0 & 0.0 & 0.0 & 0.0 & 0.0 & \cdots & 0.0 & 0.0 & 0.0 & 0.0 & 1.0\\\end{array}\right)\end{equation*}
+
+    
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}130}]:} \PY{n}{M}\PY{o}{.}\PY{n}{diag}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}130}]:} array([ 1., -1., -1.,  1., -1.,  1.,  1., -1., -1.,  1.,  1., -1.,  1.,
+                 -1., -1.,  1.])
+\end{Verbatim}
+        
+    Construct density matrix corresponding to given state:
+
+\%\[ \fullket{\psi}\fullbra{\psi} =  \]
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}31}]:} \PY{n}{ground} \PY{o}{=} \PY{n}{h1}\PY{o}{.}\PY{n}{eigenstates}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}45}]:} \PY{n}{tri} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{tri}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{)}
+         \PY{n}{Qobj}\PY{p}{(}\PY{n}{tri}\PY{p}{)}
+\end{Verbatim}
+\texttt{\color{outcolor}Out[{\color{outcolor}45}]:}
+    
+    Quantum object: dims = {[}{[}3{]}, {[}3{]}{]}, shape = {[}3, 3{]}, type
+= oper, isherm = False
+
+\begin{equation*}\left(\begin{array}{*{11}c}1.0 & 0.0 & 0.0\\1.0 & 1.0 & 0.0\\1.0 & 1.0 & 1.0\\\end{array}\right)\end{equation*}
+
+    
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}63}]:} \PY{n}{offDiagAbove}\PY{p}{(}\PY{l+m+mi}{4}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}63}]:} array([[ 0.,  1.,  0.,  0.],
+                [ 0.,  0.,  1.,  0.],
+                [ 0.,  0.,  0.,  1.],
+                [ 0.,  0.,  0.,  0.]])
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}68}]:} \PY{n}{Qobj}\PY{p}{(}\PY{n}{offDiagBelow}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)} \PY{o}{+} \PY{n}{offDiagAbove}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+\texttt{\color{outcolor}Out[{\color{outcolor}68}]:}
+    
+    Quantum object: dims = {[}{[}5{]}, {[}5{]}{]}, shape = {[}5, 5{]}, type
+= oper, isherm = True
+
+\begin{equation*}\left(\begin{array}{*{11}c}0.0 & 1.0 & 0.0 & 0.0 & 0.0\\1.0 & 0.0 & 1.0 & 0.0 & 0.0\\0.0 & 1.0 & 0.0 & 1.0 & 0.0\\0.0 & 0.0 & 1.0 & 0.0 & 1.0\\0.0 & 0.0 & 0.0 & 1.0 & 0.0\\\end{array}\right)\end{equation*}
+
+    
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}60}]:} \PY{n}{np}\PY{o}{.}\PY{n}{tri}\PY{p}{(}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{n}{np}\PY{o}{.}\PY{n}{tri}\PY{p}{(}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}60}]:} array([[ 0.,  1.,  0.,  0.],
+                [ 0.,  0.,  1.,  0.],
+                [ 0.,  0.,  0.,  1.],
+                [ 0.,  0.,  0.,  0.]])
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}62}]:} \PY{n}{np}\PY{o}{.}\PY{n}{tri}\PY{o}{??}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}49}]:} \PY{n}{np}\PY{o}{.}\PY{n}{triu\PYZus{}indices}\PY{o}{?}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}32}]:} \PY{n}{np}\PY{o}{.}\PY{n}{shape}\PY{p}{(}\PY{n}{ground}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}32}]:} (2, 64)
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}33}]:} \PY{n}{Qobj}\PY{o}{.}\PY{n}{expm}\PY{o}{?}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}34}]:} \PY{p}{(}\PY{l+m+mi}{2j}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{o}{*}\PY{n}{sigmaz}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{expm}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+\texttt{\color{outcolor}Out[{\color{outcolor}34}]:}
+    
+    Quantum object: dims = {[}{[}2{]}, {[}2{]}{]}, shape = {[}2, 2{]}, type
+= oper, isherm = True
+
+\begin{equation*}\left(\begin{array}{*{11}c}1.0 & 0.0\\0.0 & 1.0\\\end{array}\right)\end{equation*}
+
+    
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}35}]:} \PY{n}{exph1} \PY{o}{=} \PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mf}{0.95}\PY{o}{*}\PY{n}{h1}\PY{p}{)}\PY{o}{.}\PY{n}{expm}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}36}]:} \PY{n}{exph1}\PY{o}{.}\PY{n}{tr}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}36}]:} 1.5002946744691417
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}37}]:} \PY{p}{(}\PY{n}{h1}\PY{o}{*}\PY{n}{exph1}\PY{p}{)}\PY{o}{.}\PY{n}{tr}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}37}]:} 1.6477820449445226
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}38}]:} \PY{p}{(}\PY{n}{exph1} \PY{o}{*} \PY{n}{h1}\PY{p}{)}\PY{o}{.}\PY{n}{tr}\PY{p}{(}\PY{p}{)}\PY{o}{/}\PY{n}{exph1}\PY{o}{.}\PY{n}{tr}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}38}]:} 1.0983056015496204
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}39}]:} \PY{n}{expect}\PY{o}{?}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}40}]:} \PY{n}{expect}\PY{p}{(}\PY{n}{h1}\PY{p}{,}\PY{n}{ground}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{10}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}40}]:} 5.6
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}41}]:} \PY{n}{entropy\PYZus{}vn}\PY{p}{(}\PY{n}{h1}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}41}]:} -1194.5064227355053
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{n}{basis}\PY{p}{(}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{)}
+\end{Verbatim}
+\texttt{\color{outcolor}Out[{\color{outcolor}16}]:}
+    
+    Quantum object: dims = {[}{[}4{]}, {[}1{]}{]}, shape = {[}4, 1{]}, type
+= ket
+
+\begin{equation*}\left(\begin{array}{*{11}c}1.0\\0.0\\0.0\\0.0\\\end{array}\right)\end{equation*}
+
+    
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
