@@ -1,3 +1,5 @@
+# Copyright 2016 - 2019 Deepak Vaid
+
 import matplotlib as mpl
 import numpy as np
 import matplotlib.pyplot as plt
@@ -77,6 +79,38 @@ import sympy as sp
 
 # In[3]:
 
+def anticommutator(X,Y):
+    return X*Y + Y*X
+
+def qtAntiCommutator(X,Y):
+    if type(X) == Qobj and type(Y) == Qobj:
+        if len(X.shape) == 2 and len(Y.shape) == 2:
+            if X.shape[1] == Y.shape[0]:
+                return qutip.commutator(X,Y,kind='anti')
+            else:
+                raise ValueError("Number of columns of first argument must be equal to number of rows of second argument")
+        else:
+            raise ValueError("Arguements must be QuTiP arrays of shape M x N")
+    else:
+        raise ValueError("Arguments must be QuTiP arrays of compatible dimensions")
+        
+def npAntiCommutator(X,Y):
+    if type(X) == np.ndarray and type(Y) == np.ndarray:
+        if len(X.shape) == 2 and len(Y.shape) == 2:
+            if X.shape[1] == Y.shape[0]:
+                return X*Y + Y*X
+            else:
+                raise ValueError("Number of columns of first argument must be equal to number of rows of second argument")
+        else:
+            raise ValueError("Arguements must be numpy arrays of shape M x N")
+    else:
+        raise ValueError("Arguments must be numpy arrays of compatible dimensions")
+
+def zeroOpN(N = 1, dims = 2):
+    '''Returns zero operator for an N site chain with a Hilbert space of dimensions dims at each site.
+    '''
+    zeroket = qutip.zero_ket(2**N,dims=[[2]*N,[2]*N])
+    return zeroket * zeroket.dag()
 
 def identityList(N = 1,dims = 2):
     '''Returns a list of N identity operators for a N site spin-system with a
@@ -254,101 +288,6 @@ def posOp2d(oper, pos = (0,0), latt_size = (1,1) ):
     return tensor(op_list)
 
 
-
-# In[12]:
-
-
-# posOp2d(create(2),latt_size=(4,4),pos=(2,3))
-
-
-# With only a four-four spin $1/2$ lattice (sixteen sites in all), the dimension of the Hilbert space constructed by taking the tensor product of the Hilbert space at each site becomes:
-#
-# $$ 2^{16} = 65536 $$
-#
-# As such, the tensor product method of constructing the Hamiltonian and then solving for its eigenstates is not practical for systems of any meaningful extent!
-
-# In[13]:
-
-
-# 2**16
-
-
-# In[14]:
-
-
-# x = (1,1,3)
-# type(x)
-
-
-# In[15]:
-
-
-# x[2]
-
-
-# # Unitary Transformations
-#
-# In general, given any unitary matrix $U$, which transforms from one set of basis vectors $\{\fullket{\psi_i}\}$ to another set $\{\fullket{\phi_i}\}$:
-# $$ \fullket{\phi_i} = U_{ij} \fullket{\psi_j} $$
-# the corresponding action of $U$ on the space of operators is given by:
-# $$ \mc{O} \rightarrow U^{-1} \mc{O} U $$
-# or in terms of indices:
-# $$ \mc{O}_{ij} = U^{-1}_{ik} \mc{O}_{kl} U_{lj} $$
-
-# # Momentum Representation
-#
-# We transform operators to momentum space as follows:
-# $$ c^\dagger_{\vect{k}\sigma} = \frac{1}{\sqrt{N}} \sum_\vect{l} e^{i \vect{k}\cdot \vect{l}} c^\dagger_{\vect{l}\sigma}$$
-# with the inverse transformation being:
-# $$ c^\dagger_{\vect{l}\sigma} = \frac{1}{\sqrt{N}} \sum_\vect{k} e^{- i \vect{k}\cdot \vect{l}} c^\dagger_{\vect{k}\sigma}$$
-# where we have used the orthogonality condition:
-# $$ \frac{1}{N} \sum_\vect{l} e^{-i (\vect{k} - \vect{k'})\cdot \vect{l}} = \delta(\vect{k}-\vect{k'}) $$
-# This transformation can be written in terms of a matrix:
-# $$ c^\dagger_{\vect{k}\sigma} = A_{\vect{k},\vect{l}} \, c^\dagger_{\vect{l}\sigma} $$
-# where
-# $$ A_{\vect{k},\vect{l}} \equiv e^{i \vect{k}\cdot\vect{l}} $$
-# For a finite system, the momentum $\vect{k}$ and position $\vect{l}$ can take on values only in a finite set:
-# $$ \vect{k} \in \{ \vect{k}_1, \vect{k}_2, \ldots, \vect{k}_n  \}; \quad \vect{l} \in \{ \vect{l}_1, \vect{l}_2, \ldots, \vect{l}_n  \} $$
-# For a 1D system with $N$ sites, $\vect{k}_n := k_n = 2\pi n/N$
-#
-# More precisely, the momentum space operator $ c^\dagger_{\vect{k}\sigma} $ can be written as the sum:
-#
-# $$ c^\dagger_{\vect{k}\sigma} = \frac{1}{\sqrt{N}} \sum_{j=1}^N e^{i \vect{k}\cdot \vect{j}} \cdot \mb{1}_1 \otimes \ldots \mb{1}_{j-1} \otimes c^\dagger_{j\sigma} \otimes \mb{1}_{j+1} \ldots \mb{1}_N $$
-#
-# The unitary matrix which transforms operators and states between position and momentum representations, is given by:
-#
-# $$ U_{\vect{k},\vect{l}} = \frac{1}{\sqrt{N}} e^{i \vect{k}\cdot\vect{l}} $$
-#
-# The inverse of this matrix $ U^\dagger \equiv U^{-1} $ transforms back from the momentum rep to the position rep.
-#
-# $$ U^{-1}_{\vect{k},\vect{l}} = U^\dagger_{\vect{k},\vect{l}} = U^\star_{\vect{l},\vect{k}} $$
-#
-# The action of $ U^{-1}_{\vect{k},\vect{l}}$ on $c^\dagger_{\vect{k}\sigma}$ is given by:
-#
-# \begin{align}
-# \sum_{k=1}^N U^{-1}_{\vect{k},\vect{l}} c^\dagger_{\vect{k}\sigma} = \sum_{k=1}^N  U^\star_{\vect{l},\vect{k}} c^\dagger_{\vect{k}\sigma}
-#         & = \frac{1}{N} \sum_{k,j=1}^N e^{-i \vect{l}\cdot\vect{k}} e^{i \vect{k}\cdot\vect{j}} \cdot \mb{1}_1 \otimes \ldots \mb{1}_{j-1} \otimes c^\dagger_{j\sigma} \otimes \mb{1}_{j+1} \ldots \mb{1}_N \\
-#         & = \sum_{j=1}^N \delta_{\vect{l},\vect{j}} \cdot \mb{1}_1 \otimes \ldots \mb{1}_{j-1} \otimes c^\dagger_{j\sigma} \otimes \mb{1}_{j+1} \ldots \mb{1}_N \\
-#         & = \mb{1}_1 \otimes \ldots \mb{1}_{l-1} \otimes c^\dagger_{l\sigma} \otimes \mb{1}_{l+1} \ldots \mb{1}_N
-# \end{align}
-
-# ## Position to Momentum Space
-#
-# The unitary matrix which transforms operators and states between position and momentum representations, is given by:
-#
-# $$ U_{\vect{k},\vect{l}} = e^{-i \vect{k}\cdot\vect{l}} $$
-#
-# Given any operator $\mc{O}$ whose matrix elements in position space are $\mc{O}_{\vect{l},\vect{l'}}$, the matrix elements of the corresponding operator in momentum space are given by:
-#
-# $$ \mc{O}_{\vect{k},\vect{k'}} = U^{-1}_{\vect{k},\vect{l}} \mc{O}_{\vect{l},\vect{l'}} U_{\vect{l},\vect{k}} $$
-#
-# The following code returns a QuTiP object corresponding to a matrix whose elements are $U_{\vect{k},\vect{l}}$.
-
-# ## Momentum Space Operators
-
-# In[16]:
-
-
 def posToMomentumOpN(oper, k = 0, N = 1):
     '''Returns the momentum space represenation of the operator given by oper for the k^th momentum
     of an N site spin-chain with a Hilbert space of dimensionality dims at each site'''
@@ -374,17 +313,11 @@ def momCreationOpN(k = 0, N = 1):
     return posToMomentumOpN(create(2),k,N)
 
 
-# In[18]:
-
-
 def momDestructionOpN(k = 0, N = 1):
     '''Returns the momentum space represenation of the operator given by oper for the k^th momentum
     of an N site spin-chain with a Hilbert space of dimensionality dims at each site'''
 
     return qutip.dag(momCreationOpN(k,N))
-
-
-# In[19]:
 
 
 def matrixPosToMom(N = 10):
@@ -401,45 +334,6 @@ def matrixPosToMom(N = 10):
             matrix[k][l] = np.exp(1j*k*l)
 
     return Qobj(matrix)
-
-
-# In[20]:
-
-
-# posToMomentumOpN(qeye(2),k=2,N=2)
-
-
-# In[21]:
-
-
-# matrixPosToMom(N = 4)
-
-
-# In[29]:
-
-
-# momCreationOpN(k=2,N=3)
-
-
-# In[22]:
-
-
-# momDestructionOpN(k=2,N=3)
-
-
-# ## Correct Interpretation of Indices
-#
-# It is important to keep in mind that the indices $l, l'$ in the previous paragraph refer not to the
-
-# # Model Hamiltonians
-
-# ## Hubbard Hamiltonian Code
-#
-# Now at each site, one can have two electrons with spin up and down respectively. Thus our creation/annihilation operators also have a spin index $\sigma$:
-# $$ \mb{1}_1 \otimes \ldots \mb{1}_{j-1} \otimes c^\dagger_{j\sigma} \otimes \mb{1}_{j+1} \ldots \mb{1}_N $$
-# In order to implement we need two sets of creation/annihilation operators. One set for up-spin and one set for down-spin.
-
-# In[24]:
 
 
 def hamiltonianHubbard(N = 10, t = 1, U = 1, mu = 0, periodic = True, shift = False, dims = 2):
@@ -505,18 +399,6 @@ def hamiltonianHubbard(N = 10, t = 1, U = 1, mu = 0, periodic = True, shift = Fa
     return H
 
 
-# In[25]:
-
-
-# h1 = hamiltonianHubbard(mu=0.1,N=6,t=-1)
-# h1
-
-
-# ## Ising Hamiltonian Code
-
-# In[26]:
-
-
 def hamiltonianIsing(N = 10, J = 1, B = 0.0, periodic = True, spin=0.5):
     '''Returns operator corresponding to Ising Hamiltonian for give spin on N sites.
     Default value of N is 10. j is the coupling strength. Default is -1 for
@@ -553,30 +435,6 @@ def hamiltonianIsing(N = 10, J = 1, B = 0.0, periodic = True, spin=0.5):
     return H
 
 
-# In[27]:
-
-
-# N = 8
-#
-#
-# # In[28]:
-#
-#
-# testham = hamiltonianIsing(N,B=1.0,periodic = True)
-# testham
-#
-#
-# # In[29]:
-#
-#
-# plot_energy_levels([testham])
-
-
-# ## Ising Model in Transverse Field Hamiltonian Code
-
-# In[30]:
-
-
 def hamiltonianIsingTransverse(N = 10, J = 1.0, B = 1.0, periodic = True, spin=0.5):
     '''Returns operator corresponding to Ising Hamiltonian for give spin on N sites.
     Default value of N is 10. jcoef is the coupling strength. Default is -1 for
@@ -611,117 +469,6 @@ def hamiltonianIsingTransverse(N = 10, J = 1.0, B = 1.0, periodic = True, spin=0
         H += B*op_list2[N-1]
 
     return H
-
-
-# In[31]:
-
-#
-# testhamA = hamiltonianIsingTransverse(8,J=1.0,B=0.5,periodic = True)
-# testhamB = hamiltonianIsingTransverse(8,J=1.0,B=1.0,periodic=True)
-#
-#
-# # In[32]:
-#
-#
-# plot_energy_levels([testhamB,testhamA],show_ylabels=True,labels=["J=1.0, B=0.5","J=1.0, B=1.0"])
-#
-#
-# # In[33]:
-#
-#
-# plot_energy_levels([testhamA],100,show_ylabels=True)
-#
-#
-# # In[34]:
-#
-#
-# plot_energy_levels([testhamB],100,show_ylabels=True)
-#
-#
-# # In[98]:
-#
-#
-# energiesA = testhamA.eigenenergies()
-#
-#
-# # In[110]:
-#
-#
-# get_ipython().run_line_magic('pinfo', 'ax.set_yticklabels')
-#
-#
-# # In[114]:
-#
-#
-# get_ipython().run_line_magic('pinfo', 'ax.set_yticklabels')
-#
-#
-# # In[129]:
-#
-#
-# fig, ax = plt.subplots(1,1)
-# # ax.plot([0.5,1],[0.4,0.4])
-# fig.set_figwidth(2)
-# fig.set_figheight(4)
-# yticks = np.unique(np.around(energiesA, 1))
-# ax.set_yticks(yticks)
-# ax.set_frame_on(False)
-# ax.axes.get_xaxis().set_visible(False)
-# for i in energiesA:
-#     ax.plot([0,0.5],[i,i],'b')
-#
-#
-# # In[123]:
-#
-#
-# get_ipython().run_line_magic('pinfo', 'matplotlib.axis.YAxis.set_visible')
-#
-#
-# # In[124]:
-#
-#
-# get_ipython().run_line_magic('pinfo', 'np.around')
-#
-#
-# # In[102]:
-#
-#
-# get_ipython().run_line_magic('pinfo', 'ax.plot')
-#
-#
-# # In[97]:
-#
-#
-# fig, ax = plt.subplots(1,1)
-# ax.plot([0.5,1],[0.4,0.4])
-
-
-# ## Heisenberg Spin-Chain
-#
-# operator corresponding to the Heisenberg 1D spin-chain on N sites.
-# $$ H = - J \sum_{i=1}^N \vect{S}_n \cdot \vect{S}_{n+1} $$
-# where $ \vect{S}_n = (S_x, S_y, S_z) $ is the spin-operator acting on the n${}^{th}$ site.
-#
-# for the n${}^{th}$ term in the sum, we have:
-#
-# $$ H_n = -J ( S_n^x S_{n+1}^x + S_n^y S_{n+1}^y + S_n^z S_{n+1}^z ) $$
-#
-# $S^x, S^y$ can be expressed in terms of the spin-flip operators $S^+, S^-$, as in:
-#
-# $$ S^x = \frac{1}{2}(S^+ + S^-); \qquad S^y = \frac{1}{2i}(S^+ - S^-) $$
-#
-# Consequently the terms involving $S^x, S^y$ in $H_n$ take the form:
-#
-# \begin{align}
-#     S_n^x S_{n+1}^x + S_n^y S_{n+1}^y & = \frac{1}{4}(S_n^+ + S_n^-) (S_{n+1}^+ + S_{n+1}^-) - \frac{1}{4}(S_n^+ - S_n^-) (S_{n+1}^+ - S_{n+1}^-) \\
-#             & = \frac{1}{2} (S_n^+ S_{n+1}^- + S_n^- S_{n+1}^+)
-# \end{align}
-#
-# So that, the total Hamiltonian becomes:
-#
-# $$ H = -J \sum_{i=1}^N \left[ \frac{1}{2} (S_n^+ S_{n+1}^- + S_n^- S_{n+1}^+) + S_n^z S_{n+1}^z \right] $$
-
-# In[ ]:
 
 
 def hamiltonianHeisenberg(N = 5, J = 1, periodic = True):
@@ -768,13 +515,6 @@ def hamiltonianHeisenberg(N = 5, J = 1, periodic = True):
             H += - J * ( 0.5*(spinp_list[i] * spinp_list[i+1] + spinm_list[i] * spinm_list[i+1])                     + spinz_list[i] * spinz_list[i+1] )
 
     return H
-
-
-
-
-# # `Hamiltonian` Class Defintion
-
-# In[ ]:
 
 
 class Hamiltonian(Qobj):
@@ -979,24 +719,31 @@ stateListDown(N=3)
 
 
 def jordanWignerDestroyI(i = 0, N = 1):
-    ''' Returns the fermionic annihilation operator for the i^th site of a N site spin-chain:
+    ''' Returns the fermionic annihilation operator for the i^th site of a spin 1/2 N site spin-chain:
     a_i = Z_1 x Z_2 ... x Z_{i-1} x sigma_i
     where Z_i is the Pauli sigma_z matrix acting on the i^th site and sigma_i is the density
     matrix acting on the i^th qubit, given by:
     sigma_i = id_1 x id_2 ... x id_{i-1} x |0><1| x id_{i+1} ... x id_n
-    where id_i is the identity operator
+    where id_i is the identity operator. Note that this works only for a spin 1/2 chain. For higher spins,
+    one will have to generalize this transformation.
 
     Reference: Nielsen, Fermionic CCR and Jordan Wigner Transformation
     '''
 
+#     dims = 2*spin + 1
+    
+#     if !isinstance(dims,int) and dims > 0:
+#         raise ValueError("The spin argument must be positive half integer valued")
+    
     # create zop, assign to it identity operator for N site system
-    zop = tensor([qeye(2)]*N)
+    zop = tensor([qeye(dims)]*N)
 
     # for k in (0..i-1), create Z_k operator for N-site chain
     # zop is product of Z_1 * Z_2 ... * Z_{i-1}
 
     for k in range(i):
-        zop *= posOperatorN(sigmaz(),i = k, N = N)
+#         zop *= posOperatorN(sigmaz(),i = k, N = N)
+        zop *= posOperatorN(spin_Jz(spin), i = k, N = N)
 
     # create single qubit density matrix |0><1|
 
